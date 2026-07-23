@@ -40,6 +40,14 @@ npm run dev
 
 Öffne [http://localhost:3000](http://localhost:3000).
 
+### Admin
+
+1. `ADMIN_SECRET` in `.env.local` / Vercel setzen (mind. 12 Zeichen)
+2. `/admin` öffnen und Passwort eingeben
+3. Bestätigte Anmeldungen sehen + CSV herunterladen
+
+Nicht öffentlich verlinken.
+
 ## Deploy (Vercel)
 
 1. Repo mit Vercel verbinden  

@@ -18,7 +18,8 @@ Verbesserungen / To-dos
 [ ] Resend einrichten – ohne echte Mail ist der Opt-in in Produktion unbrauchbar
 [ ] Rate Limit härten – In-Memory greift auf Vercel nur schwach
     → später Upstash/Redis oder Edge-Middleware
-[ ] Admin-Export – CSV oder einfaches Dashboard für die Machbarkeitsstudie
+[x] Admin-Export – CSV oder einfaches Dashboard für die Machbarkeitsstudie
+    → /admin + CSV-Download, geschützt mit ADMIN_SECRET
 [ ] Datenschutzseite fertigstellen – Platzhalter vor Go-Live ersetzen
     (Verantwortlicher, Speicherdauer, Kontaktdaten)
 [ ] Observability – Fehlerlogs / Alert bei DB- oder Mail-Fails
@@ -51,6 +52,7 @@ Verbesserungen / To-dos
 [ ] Secret-/API-Keys rotieren, falls sie in Chat/Screenshots gelandet sind
     – nie in Git, Chat oder Screenshots; .env.local bleibt lokal
 [x] Captcha einbauen (Cloudflare Turnstile) – Keys in Vercel Env setzen
+[x] Admin-Seite + CSV-Export (/admin, ADMIN_SECRET)
 [ ] Service Role bewusst eng halten – API nur nötige Queries, keine Debug-Dumps
 [ ] Audit-Logs – wer wann bestätigt / gelöscht hat (zumindest serverseitig loggen)
 [ ] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen
