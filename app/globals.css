@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f3f6f1;
+  --bg-deep: #e4ebe0;
+  --ink: #152018;
+  --ink-muted: #3d4f42;
+  --brand: #1f5c3a;
+  --brand-deep: #143d28;
+  --accent: #c4a35a;
+  --surface: rgba(255, 255, 255, 0.72);
+  --line: rgba(21, 32, 24, 0.12);
+  --danger: #9b2c2c;
+  --ok: #1f5c3a;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 90% 60% at 10% -10%, rgba(31, 92, 58, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(196, 163, 90, 0.18), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(31, 92, 58, 0.2);
+}
+
+.site-shell {
+  width: min(1100px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--brand);
+  color: #f7faf5;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  box-shadow: 0 10px 30px rgba(20, 61, 40, 0.18);
+}
+
+.btn:hover {
+  background: var(--brand-deep);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brand-deep);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.8rem 0.95rem;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
+  font: inherit;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 2px solid rgba(31, 92, 58, 0.35);
+  outline-offset: 1px;
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.checkbox-row input {
+  margin-top: 0.25rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--brand);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise-in 700ms ease both;
+}
+
+.rise-delay {
+  animation-delay: 120ms;
+}
+
+.rise-delay-2 {
+  animation-delay: 240ms;
+}

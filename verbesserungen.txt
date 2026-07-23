@@ -1,0 +1,92 @@
+Wattlokal – Verbesserungen (Senior-Review)
+Stand: nach lokalem MVP-Test (Formular + Double-Opt-in + Supabase)
+
+================================================================================
+SENIOR WEB DEVELOPER
+================================================================================
+
+Was gut ist
+-----------
+- Klarer Scope: Landing → Formular → Double-Opt-in → DB
+- Eine Codebasis (Next.js), kein WordPress-Wildwuchs
+- Trennung UI / API / DB ist richtig
+- Statusmodell pending / confirmed ist sauber für eine Studie
+- Tech-Stack (Vercel + Supabase) passt für ein MVP und skaliert noch eine Weile
+
+Verbesserungen / To-dos
+-----------------------
+[ ] Resend einrichten – ohne echte Mail ist der Opt-in in Produktion unbrauchbar
+[ ] Rate Limit härten – In-Memory greift auf Vercel nur schwach
+    → später Upstash/Redis oder Edge-Middleware
+[ ] Admin-Export – CSV oder einfaches Dashboard für die Machbarkeitsstudie
+[ ] Datenschutzseite fertigstellen – Platzhalter vor Go-Live ersetzen
+    (Verantwortlicher, Speicherdauer, Kontaktdaten)
+[ ] Observability – Fehlerlogs / Alert bei DB- oder Mail-Fails
+[ ] Landing-Text und Design für Vertrauen bei Nachbarn feinschleifen
+[ ] Deploy auf Vercel + NEXT_PUBLIC_APP_URL auf Live-URL setzen
+[ ] Optional: eigene Domain (INWX/IONOS) an Vercel hängen
+
+Urteil Web
+----------
+Solide MVP-Architektur, nicht overengineered.
+Als Nächstes: Mail + Deploy + rechtlicher Text, dann erst weitere Features.
+
+
+================================================================================
+SENIOR SECURITY ENGINEER
+================================================================================
+
+Was gut ist
+-----------
+- Kein direkter Browser→DB-Zugriff
+- Service/Secret Key nur serverseitig
+- RLS ohne Public-Policies
+- Token gehasht, Ablaufzeit, Einmalnutzung
+- Double-Opt-in reduziert Fake-Anmeldungen
+- EU-Hosting (Paris) ist DSGVO-seitig okay
+- Keine Zählernummern im MVP = weniger sensibles Risiko
+
+Verbesserungen / To-dos
+-----------------------
+[ ] Secret-/API-Keys rotieren, falls sie in Chat/Screenshots gelandet sind
+    – nie in Git, Chat oder Screenshots; .env.local bleibt lokal
+[ ] Captcha einbauen (z. B. Cloudflare Turnstile) – Rate Limit allein reicht nicht
+[ ] Service Role bewusst eng halten – API nur nötige Queries, keine Debug-Dumps
+[ ] Audit-Logs – wer wann bestätigt / gelöscht hat (zumindest serverseitig loggen)
+[ ] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen
+[ ] E-Mail-Absender: eigene Domain + SPF/DKIM (wenn Resend produktiv)
+[ ] Subprozessoren in der Datenschutzerklärung nennen
+    (Vercel, Supabase, Resend) + AVV prüfen
+[ ] Nie Secrets oder personenbezogene Daten in Logs schreiben
+[ ] Vor Go-Live: HTTPS prüfen, Env-Vars nur in Vercel, nicht im Repo
+
+Urteil Security
+---------------
+Für ein Nachbarschafts-MVP mit Kontaktdaten + Verbrauchsschätzungen vertretbar.
+Nicht bankentauglich – vor öffentlichem Launch härten:
+Key-Rotation, Captcha, Mail-Domain, Datenschutzerklärung, Pending-Cleanup.
+
+
+================================================================================
+GEMEINSAMES FAZIT
+================================================================================
+
+Architektur richtig fürs MVP?     Ja
+Overkill?                         Nein
+Produktionsreif?                  Fast – Mail + Deploy + Rechtliches + Security-Basics fehlen
+Größtes Risiko jetzt?             Secrets-Handling, Spam ohne Captcha, unfertige Datenschutztexte
+
+Ein-Satz: Guter Start – nicht neu bauen, sondern härten und live bringen.
+
+
+================================================================================
+VORGESCHLAGENE REIHENFOLGE
+================================================================================
+
+1. Resend (echte Bestätigungsmails)
+2. Keys prüfen/rotieren, .env nur lokal / in Vercel
+3. Vercel-Deploy + Live-APP_URL
+4. Datenschutzseite ausfüllen
+5. Captcha
+6. Pending-Cleanup + optional CSV-Export
+7. Domain + SPF/DKIM
