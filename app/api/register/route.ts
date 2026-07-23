@@ -128,10 +128,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: err.message }, { status: 500 });
       }
       if (err.message.includes("E-Mail-Versand")) {
+        // Surface Resend's message so domain/from issues are visible while setting up.
+        const detail = err.message.replace(/^E-Mail-Versand fehlgeschlagen:\s*/i, "");
         return NextResponse.json(
           {
-            error:
-              "E-Mail konnte nicht gesendet werden. Prüfe RESEND_API_KEY und ob die Empfänger-Adresse bei Resend erlaubt ist (Test-Modus: oft nur deine Resend-Account-Mail).",
+            error: `E-Mail konnte nicht gesendet werden: ${detail}`,
           },
           { status: 502 },
         );

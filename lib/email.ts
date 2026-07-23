@@ -53,6 +53,14 @@ export async function sendConfirmationEmail({
 
   if (!res.ok) {
     const detail = await res.text();
-    throw new Error(`E-Mail-Versand fehlgeschlagen: ${detail}`);
+    console.error("[wattlokal] Resend error:", detail, "from:", from);
+    let hint = detail;
+    try {
+      const parsed = JSON.parse(detail) as { message?: string };
+      if (parsed.message) hint = parsed.message;
+    } catch {
+      // keep raw detail
+    }
+    throw new Error(`E-Mail-Versand fehlgeschlagen: ${hint}`);
   }
 }
