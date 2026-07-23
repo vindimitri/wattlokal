@@ -50,7 +50,7 @@ Verbesserungen / To-dos
 -----------------------
 [ ] Secret-/API-Keys rotieren, falls sie in Chat/Screenshots gelandet sind
     – nie in Git, Chat oder Screenshots; .env.local bleibt lokal
-[ ] Captcha einbauen (z. B. Cloudflare Turnstile) – Rate Limit allein reicht nicht
+[x] Captcha einbauen (Cloudflare Turnstile) – Keys in Vercel Env setzen
 [ ] Service Role bewusst eng halten – API nur nötige Queries, keine Debug-Dumps
 [ ] Audit-Logs – wer wann bestätigt / gelöscht hat (zumindest serverseitig loggen)
 [ ] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen

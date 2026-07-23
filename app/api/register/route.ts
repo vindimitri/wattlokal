@@ -3,6 +3,7 @@ import { sendConfirmationEmail } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { createConfirmToken } from "@/lib/tokens";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import { validateRegistration } from "@/lib/validation";
 
 export const runtime = "nodejs";
@@ -25,7 +26,8 @@ function appBaseUrl(request: Request): string {
 }
 
 export async function POST(request: Request) {
-  const limited = rateLimit(`register:${clientIp(request)}`);
+  const ip = clientIp(request);
+  const limited = rateLimit(`register:${ip}`);
   if (!limited.ok) {
     return NextResponse.json(
       { error: "Zu viele Anfragen. Bitte warte kurz und versuche es erneut." },
@@ -41,6 +43,16 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+  }
+
+  const turnstileToken =
+    body && typeof body === "object" && "turnstileToken" in body
+      ? (body as { turnstileToken?: unknown }).turnstileToken
+      : undefined;
+
+  const captcha = await verifyTurnstileToken(turnstileToken, ip);
+  if (!captcha.ok) {
+    return NextResponse.json({ error: captcha.error }, { status: 400 });
   }
 
   const validated = validateRegistration(body);
@@ -128,7 +140,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: err.message }, { status: 500 });
       }
       if (err.message.includes("E-Mail-Versand")) {
-        // Surface Resend's message so domain/from issues are visible while setting up.
         const detail = err.message.replace(/^E-Mail-Versand fehlgeschlagen:\s*/i, "");
         return NextResponse.json(
           {
