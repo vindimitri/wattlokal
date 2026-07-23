@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f3f6f1;
-  --bg-deep: #e4ebe0;
-  --ink: #152018;
-  --ink-muted: #3d4f42;
-  --brand: #1f5c3a;
-  --brand-deep: #143d28;
-  --accent: #c4a35a;
-  --surface: rgba(255, 255, 255, 0.72);
-  --line: rgba(21, 32, 24, 0.12);
-  --danger: #9b2c2c;
-  --ok: #1f5c3a;
+  --bg: #f8fafc;
+  --bg-deep: #eef2f7;
+  --ink: #0b132b;
+  --ink-muted: #475569;
+  --brand: #0b132b;
+  --brand-deep: #0b132b;
+  --accent: #ffea00;
+  --card: #1e293b;
+  --card-muted: #94a3b8;
+  --surface: #ffffff;
+  --line: rgba(11, 19, 43, 0.12);
+  --line-on-card: rgba(248, 250, 252, 0.14);
+  --danger: #ef4444;
+  --ok: #0b5fff;
 }
 
 @theme inline {
@@ -22,6 +25,8 @@
   --color-brand: var(--brand);
   --color-brand-deep: var(--brand-deep);
   --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-card-muted: var(--card-muted);
   --color-surface: var(--surface);
   --color-line: var(--line);
   --color-danger: var(--danger);
@@ -43,8 +48,8 @@ body {
   min-height: 100%;
   color: var(--ink);
   background:
-    radial-gradient(ellipse 90% 60% at 10% -10%, rgba(31, 92, 58, 0.16), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(196, 163, 90, 0.18), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 0% -10%, rgba(11, 95, 255, 0.08), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(255, 234, 0, 0.12), transparent 45%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
@@ -54,7 +59,8 @@ a {
 }
 
 ::selection {
-  background: rgba(31, 92, 58, 0.2);
+  background: rgba(255, 234, 0, 0.45);
+  color: var(--ink);
 }
 
 .site-shell {
@@ -70,18 +76,18 @@ a {
   padding: 0.9rem 1.4rem;
   border-radius: 999px;
   border: none;
-  background: var(--brand);
-  color: #f7faf5;
-  font-weight: 600;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
   font-size: 1rem;
   text-decoration: none;
   cursor: pointer;
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
-  box-shadow: 0 10px 30px rgba(20, 61, 40, 0.18);
+  box-shadow: 0 12px 28px rgba(11, 19, 43, 0.16);
 }
 
 .btn:hover {
-  background: var(--brand-deep);
+  background: #ffe14a;
   transform: translateY(-1px);
 }
 
@@ -93,13 +99,56 @@ a {
 
 .btn-secondary {
   background: transparent;
-  color: var(--brand-deep);
+  color: var(--ink);
   border: 1px solid var(--line);
   box-shadow: none;
+  font-weight: 600;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(11, 19, 43, 0.04);
+}
+
+.panel-card {
+  background: var(--card);
+  color: #f8fafc;
+  border: 1px solid var(--line-on-card);
+  border-radius: 1.5rem;
+}
+
+.panel-card .field label {
+  color: #f8fafc;
+}
+
+.panel-card .hint,
+.panel-card .checkbox-row {
+  color: var(--card-muted);
+}
+
+.panel-card .field input,
+.panel-card .field select,
+.panel-card .field textarea {
+  background: rgba(248, 250, 252, 0.08);
+  border-color: var(--line-on-card);
+  color: #f8fafc;
+}
+
+.panel-card .field input:focus,
+.panel-card .field select:focus,
+.panel-card .field textarea:focus {
+  outline-color: rgba(255, 234, 0, 0.55);
+}
+
+.panel-card .checkbox-row input {
+  accent-color: var(--accent);
+}
+
+.panel-card a {
+  color: var(--accent);
+}
+
+.panel-card .error-text {
+  color: #fca5a5;
 }
 
 .field {
@@ -121,7 +170,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 0.75rem;
   padding: 0.8rem 0.95rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--surface);
   color: var(--ink);
   font: inherit;
 }
@@ -129,7 +178,7 @@ a {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  outline: 2px solid rgba(31, 92, 58, 0.35);
+  outline: 2px solid rgba(255, 234, 0, 0.65);
   outline-offset: 1px;
 }
 
@@ -156,7 +205,7 @@ a {
   margin-top: 0.25rem;
   width: 1.05rem;
   height: 1.05rem;
-  accent-color: var(--brand);
+  accent-color: var(--accent);
 }
 
 @keyframes rise-in {

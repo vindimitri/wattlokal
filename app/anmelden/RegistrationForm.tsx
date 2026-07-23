@@ -199,13 +199,13 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
           </select>
         </div>
 
-        <div className="space-y-3 rounded-2xl border border-line bg-white/50 p-4">
+        <div className="space-y-3 rounded-2xl border border-[rgba(248,250,252,0.14)] bg-white/5 p-4">
           <label className="checkbox-row">
             <input type="checkbox" name="consent_dsgvo" required />
             <span>
               Ich willige ein, dass Wattlokal meine Angaben zur Organisation einer
               lokalen Energiegemeinschaft verarbeitet. Details in der{" "}
-              <Link href="/datenschutz" className="underline text-brand-deep">
+              <Link href="/datenschutz" className="underline text-accent">
                 Datenschutzerklärung
               </Link>
               .
@@ -221,7 +221,11 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
         </div>
 
         {siteKey ? (
-          <div className="cf-turnstile" data-sitekey={siteKey} data-theme="light" />
+          <div
+            className="cf-turnstile"
+            data-sitekey={siteKey}
+            data-theme="dark"
+          />
         ) : null}
 
         {error && <p className="error-text">{error}</p>}

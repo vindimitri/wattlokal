@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function DankePage() {
   return (
     <div className="site-shell py-16 max-w-2xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink">
         Fast geschafft
       </p>
       <h1 className="mt-2 font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold text-brand-deep">

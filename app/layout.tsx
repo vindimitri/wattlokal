@@ -6,7 +6,7 @@ import "./globals.css";
 const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-})
+});
 
 const sans = DM_Sans({
   variable: "--font-sans",
@@ -28,7 +28,10 @@ export default function RootLayout({
     <html lang="de" className={`${display.variable} ${sans.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <header className="site-shell py-5 flex items-center justify-between">
-          <Link href="/" className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-brand-deep">
+          <Link
+            href="/"
+            className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-brand-deep"
+          >
             Wattlokal
           </Link>
           <nav className="flex items-center gap-4 text-sm text-ink-muted">

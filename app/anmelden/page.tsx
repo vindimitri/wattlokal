@@ -8,7 +8,7 @@ export default function AnmeldenPage() {
   return (
     <div className="site-shell py-10 sm:py-14">
       <div className="max-w-2xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--ink)]">
           Mitmachen
         </p>
         <h1 className="mt-2 font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold text-brand-deep">
@@ -21,7 +21,7 @@ export default function AnmeldenPage() {
         </p>
       </div>
 
-      <div className="mt-8 max-w-2xl rounded-[1.5rem] border border-line bg-white/60 p-5 sm:p-8 backdrop-blur-sm">
+      <div className="mt-8 max-w-2xl panel-card p-5 sm:p-8">
         <RegistrationForm turnstileSiteKey={turnstileSiteKey} />
       </div>
     </div>

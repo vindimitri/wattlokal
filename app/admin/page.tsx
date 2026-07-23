@@ -99,9 +99,9 @@ export default async function AdminPage() {
       )}
 
       {rows.length > 0 && (
-        <div className="mt-6 overflow-x-auto rounded-2xl border border-line bg-white/60">
+        <div className="mt-6 overflow-x-auto rounded-2xl panel-card">
           <table className="min-w-full text-sm text-left">
-            <thead className="border-b border-line text-ink-muted">
+            <thead className="border-b border-[rgba(248,250,252,0.14)] text-card-muted">
               <tr>
                 <th className="px-3 py-3 font-semibold">Bestätigt</th>
                 <th className="px-3 py-3 font-semibold">Name</th>
@@ -115,7 +115,10 @@ export default async function AdminPage() {
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.id} className="border-b border-line/70 align-top">
+                <tr
+                  key={row.id}
+                  className="border-b border-[rgba(248,250,252,0.10)] align-top"
+                >
                   <td className="px-3 py-3 whitespace-nowrap">
                     {formatDate(row.confirmed_at)}
                   </td>
