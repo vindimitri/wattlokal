@@ -16,13 +16,16 @@ declare global {
   }
 }
 
-const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+type Props = {
+  turnstileSiteKey?: string;
+};
 
-export function RegistrationForm() {
+export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
   const router = useRouter();
   const [rolle, setRolle] = useState<Rolle>("verbraucher");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const siteKey = turnstileSiteKey.trim();
 
   const showPv = useMemo(
     () => rolle === "erzeuger" || rolle === "beides",

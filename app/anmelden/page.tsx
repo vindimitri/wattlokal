@@ -1,6 +1,10 @@
 import { RegistrationForm } from "./RegistrationForm";
 
+export const dynamic = "force-dynamic";
+
 export default function AnmeldenPage() {
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
+
   return (
     <div className="site-shell py-10 sm:py-14">
       <div className="max-w-2xl">
@@ -18,7 +22,7 @@ export default function AnmeldenPage() {
       </div>
 
       <div className="mt-8 max-w-2xl rounded-[1.5rem] border border-line bg-white/60 p-5 sm:p-8 backdrop-blur-sm">
-        <RegistrationForm />
+        <RegistrationForm turnstileSiteKey={turnstileSiteKey} />
       </div>
     </div>
   );
