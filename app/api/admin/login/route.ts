@@ -5,14 +5,39 @@ import {
   getAdminSecret,
   secretsMatch,
 } from "@/lib/admin";
+import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
+function clientIp(request: Request): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
+
 export async function POST(request: Request) {
+  const ip = clientIp(request);
+  // 5 attempts per 15 minutes per IP
+  const limited = rateLimit(`admin-login:${ip}`, 5, 15 * 60_000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      {
+        error:
+          "Zu viele Login-Versuche. Bitte warte und versuche es später erneut.",
+      },
+      {
+        status: 429,
+        headers: { "Retry-After": String(limited.retryAfterSec) },
+      },
+    );
+  }
+
   const expected = getAdminSecret();
   if (!expected) {
     return NextResponse.json(
-      { error: "ADMIN_SECRET ist nicht konfiguriert." },
+      { error: "Admin-Login ist nicht konfiguriert." },
       { status: 503 },
     );
   }

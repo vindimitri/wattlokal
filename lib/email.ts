@@ -1,3 +1,5 @@
+import { isProductionRuntime } from "@/lib/env";
+
 type SendArgs = {
   to: string;
   confirmUrl: string;
@@ -10,7 +12,6 @@ export async function sendConfirmationEmail({
   name,
 }: SendArgs): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  // Strip optional quotes from .env values like "Name <mail@domain>"
   const from = (process.env.EMAIL_FROM ?? "Wattlokal <onboarding@resend.dev>")
     .trim()
     .replace(/^["']|["']$/g, "");
@@ -32,6 +33,11 @@ export async function sendConfirmationEmail({
   ].join("\n");
 
   if (!apiKey) {
+    if (isProductionRuntime()) {
+      throw new Error(
+        "E-Mail-Versand fehlgeschlagen: RESEND_API_KEY fehlt in Production.",
+      );
+    }
     console.info("[wattlokal] Kein RESEND_API_KEY – Bestätigungslink (Dev):");
     console.info(confirmUrl);
     return;
@@ -54,12 +60,12 @@ export async function sendConfirmationEmail({
   if (!res.ok) {
     const detail = await res.text();
     console.error("[wattlokal] Resend error:", detail, "from:", from);
-    let hint = detail;
+    let hint = "Versand abgelehnt";
     try {
       const parsed = JSON.parse(detail) as { message?: string };
       if (parsed.message) hint = parsed.message;
     } catch {
-      // keep raw detail
+      // keep generic hint for client; full detail only in logs
     }
     throw new Error(`E-Mail-Versand fehlgeschlagen: ${hint}`);
   }

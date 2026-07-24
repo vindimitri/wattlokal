@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendConfirmationEmail } from "@/lib/email";
+import { assertProductionRegisterConfig } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { createConfirmToken } from "@/lib/tokens";
@@ -26,6 +27,15 @@ function appBaseUrl(request: Request): string {
 }
 
 export async function POST(request: Request) {
+  const productionConfig = assertProductionRegisterConfig();
+  if (!productionConfig.ok) {
+    console.error("[wattlokal] Production config:", productionConfig.error);
+    return NextResponse.json(
+      { error: "Anmeldung derzeit nicht möglich. Bitte später erneut versuchen." },
+      { status: 503 },
+    );
+  }
+
   const ip = clientIp(request);
   const limited = rateLimit(`register:${ip}`);
   if (!limited.ok) {
@@ -137,13 +147,16 @@ export async function POST(request: Request) {
     console.error(err);
     if (err instanceof Error) {
       if (err.message.includes("Supabase")) {
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        return NextResponse.json(
+          { error: "Anmeldung fehlgeschlagen. Bitte später erneut versuchen." },
+          { status: 500 },
+        );
       }
       if (err.message.includes("E-Mail-Versand")) {
-        const detail = err.message.replace(/^E-Mail-Versand fehlgeschlagen:\s*/i, "");
         return NextResponse.json(
           {
-            error: `E-Mail konnte nicht gesendet werden: ${detail}`,
+            error:
+              "E-Mail konnte nicht gesendet werden. Bitte später erneut versuchen.",
           },
           { status: 502 },
         );

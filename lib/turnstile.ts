@@ -1,3 +1,5 @@
+import { isProductionRuntime } from "@/lib/env";
+
 type TurnstileVerifyResult =
   | { ok: true }
   | { ok: false; error: string };
@@ -9,7 +11,8 @@ type SiteverifyResponse = {
 
 /**
  * Verifies a Cloudflare Turnstile token.
- * If TURNSTILE_SECRET_KEY is not set, verification is skipped (local/dev).
+ * Dev: missing secret skips captcha (with warning).
+ * Production: missing secret fails closed.
  */
 export async function verifyTurnstileToken(
   token: unknown,
@@ -18,8 +21,15 @@ export async function verifyTurnstileToken(
   const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
 
   if (!secret) {
+    if (isProductionRuntime()) {
+      console.error("[wattlokal] TURNSTILE_SECRET_KEY fehlt in Production.");
+      return {
+        ok: false,
+        error: "Captcha ist nicht konfiguriert. Bitte später erneut versuchen.",
+      };
+    }
     console.warn(
-      "[wattlokal] TURNSTILE_SECRET_KEY fehlt – Captcha-Prüfung übersprungen.",
+      "[wattlokal] TURNSTILE_SECRET_KEY fehlt – Captcha-Prüfung übersprungen (Dev).",
     );
     return { ok: true };
   }

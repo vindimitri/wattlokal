@@ -1,5 +1,44 @@
 Wattlokal – Verbesserungen (Senior-Review)
-Stand: nach lokalem MVP-Test (Formular + Double-Opt-in + Supabase)
+Aktualisiert: Juli 2026 – Live-MVP inkl. Domain, Resend, Turnstile, Admin, Cleanup, Landing
+
+Wenn ein Senior Web Developer und ein Senior Security Engineer die aktuelle
+Infrastruktur bewerten, ergibt sich folgendes Bild.
+
+
+================================================================================
+GESAMTURTEIL
+================================================================================
+
+Architektur für eine lokale Machbarkeitsstudie?   Ja – solide
+Overengineered?                                   Nein
+Enterprise- / Banken-Standard?                    Nein
+Für Nachbarn-Kampagne nutzbar?                    Ja – mit Klartext-Restarbeiten
+
+Kern ist richtig: Double-Opt-in, gehashte Tokens, kein Browser→DB, Captcha,
+Pending-Cleanup. Was fehlt, ist Härten und Betrieb – kein kompletter Neubau.
+
+Ein-Satz: Nicht neu schreiben – Recht finalisieren, fail-closed, dann Auth /
+Rate-Limit / Audit nachziehen.
+
+
+================================================================================
+ARCHITEKTUR (IST-STAND)
+================================================================================
+
+UI:     /  /anmelden  /bestaetigen  /danke  /datenschutz  /impressum  /admin
+API:    POST /api/register
+        GET  /api/cron/cleanup-pending
+        POST|DELETE /api/admin/login
+        GET  /api/admin/export
+Daten:  Supabase registrations (pending → confirmed)
+Mail:   Resend (@wattlokal.de)
+Abuse:  Cloudflare Turnstile + In-Memory Rate Limit
+Auth:   ADMIN_SECRET → HttpOnly-Cookie
+Host:   Vercel + Domain IONOS/Vercel DNS
+
+Flow: Formular → Validierung + Captcha + Rate Limit → pending + Token-Hash
+      → Bestätigungsmail → /bestaetigen → confirmed → Admin/CSV
+
 
 ================================================================================
 SENIOR WEB DEVELOPER
@@ -7,30 +46,56 @@ SENIOR WEB DEVELOPER
 
 Was gut ist
 -----------
-- Klarer Scope: Landing → Formular → Double-Opt-in → DB
-- Eine Codebasis (Next.js), kein WordPress-Wildwuchs
-- Trennung UI / API / DB ist richtig
-- Statusmodell pending / confirmed ist sauber für eine Studie
-- Tech-Stack (Vercel + Supabase) passt für ein MVP und skaliert noch eine Weile
+[x] Klarer Scope: Landing → Formular → Double-Opt-in → DB
+[x] Saubere Trennung (validation, tokens, email, Routes)
+[x] Double-Opt-in mit gehashtem Token + TTL
+[x] Serverseitige Validierung
+[x] Pending-Cleanup (Cron: Token abgelaufen oder älter als 7 Tage)
+[x] Admin force-dynamic, noindex; CSV no-store
+[x] Resend + Domain, Captcha, Design, Landing-Karussell
+[x] Impressum + Datenschutz-Struktur vorhanden
 
-Verbesserungen / To-dos
------------------------
-[ ] Resend einrichten – ohne echte Mail ist der Opt-in in Produktion unbrauchbar
-[ ] Rate Limit härten – In-Memory greift auf Vercel nur schwach
-    → später Upstash/Redis oder Edge-Middleware
-[x] Admin-Export – CSV oder einfaches Dashboard für die Machbarkeitsstudie
-    → /admin + CSV-Download, geschützt mit ADMIN_SECRET
-[ ] Datenschutzseite fertigstellen – Platzhalter vor Go-Live ersetzen
-    (Verantwortlicher, Speicherdauer, Kontaktdaten)
-[ ] Observability – Fehlerlogs / Alert bei DB- oder Mail-Fails
-[ ] Landing-Text und Design für Vertrauen bei Nachbarn feinschleifen
-[ ] Deploy auf Vercel + NEXT_PUBLIC_APP_URL auf Live-URL setzen
-[ ] Optional: eigene Domain (INWX/IONOS) an Vercel hängen
+Was er kritisieren würde
+------------------------
+[ ] Rate Limit nur In-Memory → auf Vercel über Instanzen wirkungslos
+    Datei: lib/rate-limit.ts
+    → Upstash Redis / Vercel KV
 
-Urteil Web
-----------
-Solide MVP-Architektur, nicht overengineered.
-Als Nächstes: Mail + Deploy + rechtlicher Text, dann erst weitere Features.
+[ ] Captcha fail-open: fehlt TURNSTILE_SECRET_KEY → Captcha wird übersprungen
+    Datei: lib/turnstile.ts
+    → In Production hart ablehnen (fail-closed)
+
+[ ] Mail ohne RESEND_API_KEY: Link nur in Logs (lokal ok, Prod gefährlich)
+    Datei: lib/email.ts
+    → In Production ohne Key Register verweigern
+
+[ ] Confirm per GET mit Seiteneffekt (Scanner/Bots können bestätigen)
+    Datei: app/bestaetigen/page.tsx
+    → Confirm per POST / One-Time-Form
+
+[ ] Race bei parallelem Erst-Insert gleicher E-Mail (kein robustes Upsert)
+    Datei: app/api/register/route.ts
+    → onConflict / Idempotenz
+
+[ ] Confirmed-Daten: Speicherdauer in Datenschutz genannt, technisch nicht
+    enforced (Cron löscht nur pending)
+    → Retention-Job für confirmed (löschen/anonymisieren)
+
+[ ] Keine automatisierten Tests, keine Alerts bei Mail/DB-Fails
+[ ] Rechtstexte noch Platzhalter (Impressum/Datenschutz)
+[ ] Dead Code: authorizeAdminRequest ungenutzt (lib/admin.ts)
+[ ] Admin = Shared-Secret – Studie ok, kein Produkt-Standard
+
+Priorität Web
+-------------
+[x] Production fail-closed (Turnstile + Resend + nötige Env Pflicht)
+    → lib/env.ts, lib/turnstile.ts, lib/email.ts, /api/register
+[x] Admin-Login Rate Limit (5 Versuche / 15 Min. pro IP)
+    → /api/admin/login
+[ ] Rate Limit Formular härten (Upstash Redis) – aktuell In-Memory
+[ ] Confirm per POST statt GET
+[ ] Confirmed-Retention passend zur Datenschutzerklärung
+[ ] Rechtstexte Platzhalter ersetzen
 
 
 ================================================================================
@@ -39,57 +104,105 @@ SENIOR SECURITY ENGINEER
 
 Was gut ist
 -----------
-- Kein direkter Browser→DB-Zugriff
-- Service/Secret Key nur serverseitig
-- RLS ohne Public-Policies
-- Token gehasht, Ablaufzeit, Einmalnutzung
-- Double-Opt-in reduziert Fake-Anmeldungen
-- EU-Hosting (Paris) ist DSGVO-seitig okay
-- Keine Zählernummern im MVP = weniger sensibles Risiko
+[x] Service Role nur serverseitig; kein Browser-Supabase-Client
+[x] RLS ohne Public-Policies (so vorgesehen in schema.sql)
+[x] Tokens: randomBytes + SHA-256, nach Confirm gelöscht
+[x] Admin-Cookie HttpOnly, SameSite, Secure in Prod, timingSafeEqual
+[x] Turnstile Siteverify; Cron hinter CRON_SECRET
+[x] .env* in .gitignore
+[x] Double-Opt-in + Captcha gegen Spam/Fake
 
-Verbesserungen / To-dos
------------------------
-[ ] Secret-/API-Keys rotieren, falls sie in Chat/Screenshots gelandet sind
-    – nie in Git, Chat oder Screenshots; .env.local bleibt lokal
-[x] Captcha einbauen (Cloudflare Turnstile) – Keys in Vercel Env setzen
-[x] Admin-Seite + CSV-Export (/admin, ADMIN_SECRET)
-[ ] Service Role bewusst eng halten – API nur nötige Queries, keine Debug-Dumps
-[ ] Audit-Logs – wer wann bestätigt / gelöscht hat (zumindest serverseitig loggen)
-[x] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen
-    → Cron /api/cron/cleanup-pending (Token abgelaufen oder älter als 7 Tage)
-[ ] E-Mail-Absender: eigene Domain + SPF/DKIM (wenn Resend produktiv)
-[ ] Subprozessoren in der Datenschutzerklärung nennen
-    (Vercel, Supabase, Resend) + AVV prüfen
-[ ] Nie Secrets oder personenbezogene Daten in Logs schreiben
-[ ] Vor Go-Live: HTTPS prüfen, Env-Vars nur in Vercel, nicht im Repo
+Was er kritisieren würde
+------------------------
+[ ] Service-Role-Leak = volle DB/PII (Hoch, wenn Key rauskommt)
+    → Key nie im Frontend; Rotation; Zugriff dokumentieren
 
-Urteil Security
----------------
-Für ein Nachbarschafts-MVP mit Kontaktdaten + Verbrauchsschätzungen vertretbar.
-Nicht bankentauglich – vor öffentlichem Launch härten:
-Key-Rotation, Captcha, Mail-Domain, Datenschutzerklärung, Pending-Cleanup.
+[ ] Ein ADMIN_SECRET für alles; Cookie = Hash(Secret) → Secret kennt Cookie
+    → Später zufällige Session (HMAC/JWT), MFA/IdP
+
+[ ] Admin-Login ohne Rate Limit → Online-Guessing
+    Datei: app/api/admin/login/route.ts
+
+[ ] Turnstile in Prod abschaltbar bei fehlender Env (Hoch bei Fehlkonfig)
+
+[ ] Schwaches Rate Limit über Serverless-Instanzen (Mittel)
+
+[ ] E-Mail-Enumeration möglich (409 wenn schon confirmed) (Niedrig–Mittel)
+    → Einheitliche Antwort „Prüfe dein Postfach“
+
+[ ] Fehlerdetails an Client (Resend-Text / Config-Hinweise) (Niedrig–Mittel)
+    Datei: app/api/register/route.ts
+    → Generische Meldungen nach außen, Details nur Server-Log
+
+[ ] Confirm per GET (Niedrig–Mittel) – Prefetch/Scanner
+
+[ ] CSV/PII ohne Audit-Log wer exportiert hat (Mittel Betrieb)
+
+[ ] Keine zusätzlichen Security-Headers in next.config.ts (Niedrig–Mittel)
+
+[ ] View registrations_confirmed: Grants in Supabase prüfen
+    (Tabelle-RLS allein deckt Views nicht immer ab)
+
+[ ] Admin-Cookie path="/" (Low) → besser path=/admin
+
+Priorität Security
+------------------
+[x] P0  Production fail-closed (Captcha/Mail/Secrets)
+P0  Supabase: anon/authenticated haben KEIN Recht auf Tabelle/View
+P0  Secrets rotieren, falls je in Chat/Screenshots
+[x] P1  Rate-Limit + Lockout auf Admin-Login (5/15 Min.)
+P1  Einheitliche Register-Antworten (weniger Enumeration)
+P1  Bessere Admin-Session + Audit Login/Export
+[x] P1  API-Fehler sanitizen (Register: generische Client-Meldungen)
+P2  POST-Confirm, Security-Headers (CSP inkl. Turnstile)
+P3  Shared-Secret durch echtes IdP + MFA ersetzen
 
 
 ================================================================================
-GEMEINSAMES FAZIT
+MVP-STUDIE vs. ENTERPRISE-STANDARD
 ================================================================================
 
-Architektur richtig fürs MVP?     Ja
-Overkill?                         Nein
-Produktionsreif?                  Fast – Mail + Deploy + Rechtliches + Security-Basics fehlen
-Größtes Risiko jetzt?             Secrets-Handling, Spam ohne Captcha, unfertige Datenschutztexte
-
-Ein-Satz: Guter Start – nicht neu bauen, sondern härten und live bringen.
+Bereich          | Jetzt (Studie)              | Enterprise
+-----------------+-----------------------------+---------------------------
+Auth             | 1 Shared-Secret             | SSO, Rollen, 2FA
+Missbrauch       | Turnstile + schwaches RL    | Distributed RL + WAF
+Datenbankzugriff | Service Role serverseitig   | Scoped Roles, Rotation
+Retention        | nur pending cleanup         | auch confirmed + Holds
+DSGVO-Betrieb    | Text + manuell              | DSAR-Workflow, Consent-Ver.
+Recht            | Platzhalter                 | Final + AVV
+Audit            | keins                       | Login/Export/Löschung
+Qualität         | keine Tests                 | Tests, Staging, Monitoring
 
 
 ================================================================================
-VORGESCHLAGENE REIHENFOLGE
+NÄCHSTE SCHRITTE (PRAKTISCH)
 ================================================================================
 
-1. Resend (echte Bestätigungsmails)
-2. Keys prüfen/rotieren, .env nur lokal / in Vercel
-3. Vercel-Deploy + Live-APP_URL
-4. Datenschutzseite ausfüllen
-5. Captcha
-6. Pending-Cleanup + optional CSV-Export
-7. Domain + SPF/DKIM
+Sofort (vor großem öffentlichen Push)
+-------------------------------------
+1. Platzhalter Impressum + Datenschutz ersetzen (echte Kontaktdaten)
+2. Fail-closed in Production einbauen
+3. Supabase-Rechte (Tabelle + View) verifizieren
+4. Keys rotieren, falls nötig
+
+Härten
+------
+5. Distributed Rate Limit
+6. Confirm per POST
+7. Confirmed-Lösch-/Anonymisierungskonzept
+8. Admin-Login drosseln + bessere Session
+
+Wenn es ein Produkt wird
+------------------------
+9. Echtes Admin-Login + Audit
+10. DSAR-Prozess (Auskunft/Löschung) operationalisieren
+
+
+================================================================================
+VERWEISE
+================================================================================
+
+finale-erklaerung.md   – Gesamtplan „final“
+datenflow.md           – Datenfluss-Diagramme
+README.md              – Setup & Betrieb
+supabase/schema.sql    – DB-Schema
