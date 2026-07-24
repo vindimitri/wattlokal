@@ -204,7 +204,7 @@ Wenn es ein Produkt wird
 VERWEISE
 ================================================================================
 
-finale-erklaerung.md   – Gesamtplan „final“
-datenflow.md           – Datenfluss-Diagramme
-README.md              – Setup & Betrieb
-supabase/schema.sql    – DB-Schema
+docs/finale-erklaerung.md   – Gesamtplan „final“
+docs/datenflow.md           – Datenfluss-Diagramme
+README.md                   – Setup & Betrieb
+supabase/schema.sql         – DB-Schema

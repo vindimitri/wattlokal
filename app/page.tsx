@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EnergyCarousel } from "./EnergyCarousel";
+import { EnergyCarousel } from "@/components/EnergyCarousel";
 
 export default function HomePage() {
   return (

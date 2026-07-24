@@ -30,7 +30,7 @@ Es gibt (noch) **keine Verträge und keine Abrechnung** über die Website — nu
 | Captcha | **Cloudflare Turnstile** | Spam-/Bot-Schutz |
 | Admin | `/admin` + `ADMIN_SECRET` | Tabelle + CSV (Studie) |
 
-Details zum Datenfluss: siehe `datenflow.md`.
+Details zum Datenfluss: siehe [`datenflow.md`](./datenflow.md).
 
 ---
 

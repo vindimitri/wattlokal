@@ -1,14 +1,26 @@
 # Wattlokal
 
-Lokale Energiegemeinschaft – Landingpage + Anmeldeformular mit Double-Opt-in.
+Lokale Energiegemeinschaft – Landingpage, Anmeldeformular und Double-Opt-in für die Machbarkeitsstudie.
+
+**Live:** [https://www.wattlokal.de](https://www.wattlokal.de)  
+(`wattlokal.de` und `wattlokal.vercel.app` leiten auf `www` um.)
 
 ## Flow
 
-1. Nutzer füllt Formular unter `/anmelden` aus  
-2. Eintrag wird als `pending` gespeichert  
-3. Bestätigungsmail mit Link  
-4. Klick auf `/bestaetigen?token=…` setzt Status auf `confirmed`  
-5. Nur `confirmed`-Einträge zählen für die Studie (`registrations_confirmed`)
+1. Formular unter `/anmelden`
+2. Speichern als `pending` + Bestätigungsmail
+3. Klick auf `/bestaetigen?token=…` → `confirmed`
+4. Nur `confirmed` zählt für die Studie (Admin/CSV)
+
+## Repo-Struktur
+
+```
+app/           Seiten & API-Routen (Next.js App Router)
+components/    Gemeinsame UI (Header, Footer, Carousel)
+lib/           Server-Logik (DB, Mail, Captcha, Validierung, Admin)
+docs/          Architektur, Checkliste, Verbesserungen
+supabase/      schema.sql
+```
 
 ## Setup
 
@@ -20,9 +32,9 @@ npm install
 
 ### 2. Supabase
 
-1. Projekt in Region **Frankfurt** anlegen  
+1. Projekt in Region **West EU (Paris)** anlegen  
 2. SQL aus `supabase/schema.sql` im SQL Editor ausführen  
-3. URL + **service_role** Key kopieren  
+3. URL + **service_role**-Key kopieren  
 
 ### 3. Umgebungsvariablen
 
@@ -30,7 +42,9 @@ npm install
 cp .env.example .env.local
 ```
 
-Werte eintragen. Für lokalen Test ohne Resend: `RESEND_API_KEY` leer lassen – der Bestätigungslink erscheint in der Terminal-Ausgabe von `npm run dev`.
+Werte eintragen. Lokal ohne Resend: `RESEND_API_KEY` leer lassen – der Bestätigungslink erscheint in der Terminal-Ausgabe von `npm run dev`.
+
+Secrets nie committen (`.env*`, `api-keys.txt` sind in `.gitignore`).
 
 ### 4. Starten
 
@@ -40,38 +54,40 @@ npm run dev
 
 Öffne [http://localhost:3000](http://localhost:3000).
 
-### Admin
+## Admin
 
-1. `ADMIN_SECRET` in `.env.local` / Vercel setzen (mind. 12 Zeichen)
-2. `/admin` öffnen und Passwort eingeben
-3. Bestätigte Anmeldungen sehen + CSV herunterladen
+1. `ADMIN_SECRET` setzen (mind. 12 Zeichen)
+2. `/admin` öffnen
+3. Bestätigte Anmeldungen + CSV
 
 Nicht öffentlich verlinken.
 
-### Pending-Cleanup
+## Pending-Cleanup
 
-Täglich (03:00 UTC) löscht Vercel Cron unbestätigte Anmeldungen:
-- Token abgelaufen, oder
-- älter als 7 Tage
+Vercel Cron täglich 03:00 UTC → `/api/cron/cleanup-pending`  
+(Token abgelaufen oder Eintrag älter als 7 Tage.)
 
-Env: `CRON_SECRET` (Vercel setzt `Authorization: Bearer …` beim Cron-Aufruf).
+Env: `CRON_SECRET`
 
-Manuell testen:
 ```bash
 curl -H "Authorization: Bearer DEIN_CRON_SECRET" https://www.wattlokal.de/api/cron/cleanup-pending
 ```
 
 ## Deploy (Vercel)
 
-1. Repo mit Vercel verbinden  
-2. Dieselben Env-Vars setzen (`NEXT_PUBLIC_APP_URL` = Produktions-URL)  
+1. Repo verbinden  
+2. Env-Vars setzen (`NEXT_PUBLIC_APP_URL=https://www.wattlokal.de`)  
 3. Deploy  
+
+## Dokumentation
+
+- [docs/datenflow.md](docs/datenflow.md) – Datenfluss  
+- [docs/finale-erklaerung.md](docs/finale-erklaerung.md) – Finale Checkliste  
+- [docs/verbesserungen.txt](docs/verbesserungen.txt) – Offene Verbesserungen  
 
 ## Sicherheit (MVP)
 
-- HTTPS über Vercel  
-- Service Role Key nur serverseitig  
-- RLS ohne Public-Policies  
-- Token gehasht in der DB, 48h gültig  
-- Rate Limit auf `/api/register`  
-- Ein E-Mail = ein Datensatz (erneutes Absenden aktualisiert nur `pending`)
+- HTTPS (Vercel), Service Role nur serverseitig  
+- RLS ohne Public-Policies, Tokens gehasht (48h)  
+- Turnstile + Rate Limit; Production fail-closed  
+- Admin-Login Rate Limit; Security-Headers/CSP  
