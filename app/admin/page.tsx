@@ -1,11 +1,11 @@
 import { AdminLoginForm } from "./AdminLoginForm";
 import { AdminToolbar } from "./AdminToolbar";
 import {
+  fetchConfirmedRegistrations,
   getAdminSecret,
   isAdminAuthenticated,
   type ConfirmedRegistration,
 } from "@/lib/admin";
-import { getSupabaseAdmin } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -57,29 +57,9 @@ export default async function AdminPage() {
     );
   }
 
-  let rows: ConfirmedRegistration[] = [];
-  let loadError: string | null = null;
-
-  try {
-    const supabase = getSupabaseAdmin();
-    const { data, error } = await supabase
-      .from("registrations")
-      .select(
-        "id, created_at, confirmed_at, name, email, plz, ort, rolle, pv_kwp, verbrauch_kwh, smart_meter",
-      )
-      .eq("status", "confirmed")
-      .order("confirmed_at", { ascending: false });
-
-    if (error) {
-      console.error(error);
-      loadError = "Daten konnten nicht geladen werden.";
-    } else {
-      rows = (data ?? []) as ConfirmedRegistration[];
-    }
-  } catch (err) {
-    console.error(err);
-    loadError = "Datenbankverbindung fehlgeschlagen.";
-  }
+  const loaded = await fetchConfirmedRegistrations();
+  const rows: ConfirmedRegistration[] = loaded.ok ? loaded.rows : [];
+  const loadError = loaded.ok ? null : loaded.error;
 
   return (
     <div className="site-shell py-10 sm:py-12">

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendConfirmationEmail } from "@/lib/email";
 import { assertProductionRegisterConfig } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
+import { appBaseUrl, clientIp } from "@/lib/request";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { createConfirmToken } from "@/lib/tokens";
 import { verifyTurnstileToken } from "@/lib/turnstile";
@@ -9,22 +10,9 @@ import { validateRegistration } from "@/lib/validation";
 
 export const runtime = "nodejs";
 
-function clientIp(request: Request): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
-
-function appBaseUrl(request: Request): string {
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
-  }
-  const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
-  const proto = request.headers.get("x-forwarded-proto") ?? "http";
-  return host ? `${proto}://${host}` : "http://localhost:3000";
-}
+/** Same message for success path after mail — also used when email already confirmed (anti-enumeration). */
+const SUCCESS_HINT =
+  "Wenn die Adresse neu ist, erhältst du gleich eine Bestätigungsmail.";
 
 export async function POST(request: Request) {
   const productionConfig = assertProductionRegisterConfig();
@@ -90,14 +78,9 @@ export async function POST(request: Request) {
       );
     }
 
+    // Already confirmed: same UX as success (no email re-send, no enumeration)
     if (existing?.status === "confirmed") {
-      return NextResponse.json(
-        {
-          error:
-            "Diese E-Mail ist bereits bestätigt. Eine erneute Anmeldung ist nicht nötig.",
-        },
-        { status: 409 },
-      );
+      return NextResponse.json({ ok: true, message: SUCCESS_HINT });
     }
 
     const payload = {
@@ -127,6 +110,7 @@ export async function POST(request: Request) {
         .insert(payload);
 
       if (insertError) {
+        // Unique race: treat as retryable generic failure
         console.error(insertError);
         return NextResponse.json(
           { error: "Speichern fehlgeschlagen. Bitte später erneut versuchen." },
@@ -142,7 +126,7 @@ export async function POST(request: Request) {
       confirmUrl,
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, message: SUCCESS_HINT });
   } catch (err) {
     console.error(err);
     if (err instanceof Error) {

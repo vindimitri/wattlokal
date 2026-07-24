@@ -1,8 +1,12 @@
 import { createHash, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
+import { getSupabaseAdmin } from "@/lib/supabase";
 import type { Rolle, SmartMeterStatus } from "@/lib/types";
 
 export const ADMIN_COOKIE = "wattlokal_admin";
+
+const CONFIRMED_SELECT =
+  "id, created_at, confirmed_at, name, email, plz, ort, rolle, pv_kwp, verbrauch_kwh, smart_meter";
 
 export type ConfirmedRegistration = {
   id: string;
@@ -53,14 +57,28 @@ export async function isAdminAuthenticated(): Promise<boolean> {
   return timingSafeEqual(a, b);
 }
 
-export function authorizeAdminRequest(request: Request): boolean {
-  const expected = getAdminSecret();
-  if (!expected) return false;
+export async function fetchConfirmedRegistrations(): Promise<
+  | { ok: true; rows: ConfirmedRegistration[] }
+  | { ok: false; error: string }
+> {
+  try {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from("registrations")
+      .select(CONFIRMED_SELECT)
+      .eq("status", "confirmed")
+      .order("confirmed_at", { ascending: false });
 
-  const header = request.headers.get("x-admin-secret")?.trim();
-  if (header && secretsMatch(header, expected)) return true;
+    if (error) {
+      console.error(error);
+      return { ok: false, error: "Daten konnten nicht geladen werden." };
+    }
 
-  return false;
+    return { ok: true, rows: (data ?? []) as ConfirmedRegistration[] };
+  } catch (err) {
+    console.error(err);
+    return { ok: false, error: "Datenbankverbindung fehlgeschlagen." };
+  }
 }
 
 export function toCsv(rows: ConfirmedRegistration[]): string {

@@ -92,6 +92,8 @@ Priorität Web
     → lib/env.ts, lib/turnstile.ts, lib/email.ts, /api/register
 [x] Admin-Login Rate Limit (5 Versuche / 15 Min. pro IP)
     → /api/admin/login
+[x] Security-Headers + CSP (next.config.ts)
+[x] Register Anti-Enumeration (confirmed → gleicher Success-Response)
 [ ] Rate Limit Formular härten (Upstash Redis) – aktuell In-Memory
 [ ] Confirm per POST statt GET
 [ ] Confirmed-Retention passend zur Datenschutzerklärung
@@ -149,12 +151,12 @@ Priorität Security
 ------------------
 [x] P0  Production fail-closed (Captcha/Mail/Secrets)
 P0  Supabase: anon/authenticated haben KEIN Recht auf Tabelle/View
-P0  Secrets rotieren, falls je in Chat/Screenshots
+P0  Secrets rotieren, falls je in Chat/Screenshots (api-keys.txt aus Git entfernt)
 [x] P1  Rate-Limit + Lockout auf Admin-Login (5/15 Min.)
-P1  Einheitliche Register-Antworten (weniger Enumeration)
+[x] P1  Einheitliche Register-Antworten (weniger Enumeration)
 P1  Bessere Admin-Session + Audit Login/Export
 [x] P1  API-Fehler sanitizen (Register: generische Client-Meldungen)
-P2  POST-Confirm, Security-Headers (CSP inkl. Turnstile)
+[x] P2  Security-Headers / CSP (Turnstile allowlist) – POST-Confirm offen
 P3  Shared-Secret durch echtes IdP + MFA ersetzen
 
 

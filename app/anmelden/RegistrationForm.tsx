@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-
-type Rolle = "erzeuger" | "verbraucher" | "beides";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import type { Rolle } from "@/lib/types";
 
 declare global {
   interface Window {
@@ -43,10 +42,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
   const widgetRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
 
-  const showPv = useMemo(
-    () => rolle === "erzeuger" || rolle === "beides",
-    [rolle],
-  );
+  const showPv = rolle === "erzeuger" || rolle === "beides";
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.turnstile) {

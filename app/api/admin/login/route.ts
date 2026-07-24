@@ -6,16 +6,9 @@ import {
   secretsMatch,
 } from "@/lib/admin";
 import { rateLimit } from "@/lib/rate-limit";
+import { clientIp } from "@/lib/request";
 
 export const runtime = "nodejs";
-
-function clientIp(request: Request): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
 
 export async function POST(request: Request) {
   const ip = clientIp(request);
