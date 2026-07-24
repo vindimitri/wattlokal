@@ -20,8 +20,8 @@ const SLIDES: Slide[] = [
     caption: "Weniger Umwege: Energie in der Nachbarschaft halten.",
   },
   {
-    src: "https://images.unsplash.com/photo-1497435334941-8c272ad93218?auto=format&fit=crop&w=1600&q=80",
-    alt: "Erneuerbare Energien und grüne Landschaft",
+    src: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1600&q=80",
+    alt: "Solarpaneele unter blauem Himmel",
     caption: "Gemeinschaftlich statt anonym – Strom teilen vor Ort.",
   },
 ];
