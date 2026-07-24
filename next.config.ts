@@ -35,6 +35,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "wattlokal.vercel.app" }],
+        destination: "https://www.wattlokal.de/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
