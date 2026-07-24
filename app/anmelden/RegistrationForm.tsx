@@ -3,14 +3,25 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 type Rolle = "erzeuger" | "verbraucher" | "beides";
 
 declare global {
   interface Window {
     turnstile?: {
+      render: (
+        element: HTMLElement,
+        options: {
+          sitekey: string;
+          theme?: "light" | "dark" | "auto";
+          callback?: (token: string) => void;
+          "expired-callback"?: () => void;
+          "error-callback"?: () => void;
+        },
+      ) => string;
       reset: (widgetId?: string) => void;
+      remove: (widgetId?: string) => void;
       getResponse: (widgetId?: string) => string;
     };
   }
@@ -25,12 +36,82 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
   const [rolle, setRolle] = useState<Rolle>("verbraucher");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [scriptReady, setScriptReady] = useState(false);
+  const [mountId, setMountId] = useState(0);
   const siteKey = turnstileSiteKey.trim();
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
 
   const showPv = useMemo(
     () => rolle === "erzeuger" || rolle === "beides",
     [rolle],
   );
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.turnstile) {
+      setScriptReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!siteKey || !scriptReady || !widgetRef.current || !window.turnstile) {
+      return;
+    }
+
+    if (widgetIdRef.current) {
+      try {
+        window.turnstile.remove(widgetIdRef.current);
+      } catch {
+        // ignore
+      }
+      widgetIdRef.current = null;
+    }
+
+    widgetRef.current.innerHTML = "";
+    setTurnstileToken("");
+
+    widgetIdRef.current = window.turnstile.render(widgetRef.current, {
+      sitekey: siteKey,
+      theme: "dark",
+      callback: (token) => setTurnstileToken(token),
+      "expired-callback": () => setTurnstileToken(""),
+      "error-callback": () => setTurnstileToken(""),
+    });
+
+    return () => {
+      if (widgetIdRef.current && window.turnstile) {
+        try {
+          window.turnstile.remove(widgetIdRef.current);
+        } catch {
+          // ignore
+        }
+        widgetIdRef.current = null;
+      }
+    };
+  }, [siteKey, scriptReady, mountId]);
+
+  // Browser-Zurück / bfcache: Widget neu mounten
+  useEffect(() => {
+    function remount() {
+      setMountId((id) => id + 1);
+      if (window.turnstile) setScriptReady(true);
+    }
+
+    function onPageShow(event: PageTransitionEvent) {
+      if (event.persisted) remount();
+    }
+
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
+  function resetTurnstile() {
+    setTurnstileToken("");
+    if (widgetIdRef.current && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current);
+    }
+  }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,12 +121,14 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    const turnstileToken =
-      String(formData.get("cf-turnstile-response") ?? "") ||
-      window.turnstile?.getResponse?.() ||
+    const token =
+      turnstileToken ||
+      (widgetIdRef.current
+        ? window.turnstile?.getResponse?.(widgetIdRef.current)
+        : "") ||
       "";
 
-    if (siteKey && !turnstileToken) {
+    if (siteKey && !token) {
       setError("Bitte Captcha abschließen.");
       setPending(false);
       return;
@@ -62,7 +145,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
       smart_meter: String(formData.get("smart_meter") ?? ""),
       consent_dsgvo: formData.get("consent_dsgvo") === "on",
       consent_studie: formData.get("consent_studie") === "on",
-      turnstileToken,
+      turnstileToken: token,
     };
 
     try {
@@ -76,7 +159,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
       if (!res.ok) {
         setError(json.error ?? "Absenden fehlgeschlagen.");
         setPending(false);
-        window.turnstile?.reset?.();
+        resetTurnstile();
         return;
       }
 
@@ -84,7 +167,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
     } catch {
       setError("Netzwerkfehler. Bitte erneut versuchen.");
       setPending(false);
-      window.turnstile?.reset?.();
+      resetTurnstile();
     }
   }
 
@@ -92,9 +175,9 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
     <>
       {siteKey ? (
         <Script
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-          async
-          defer
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+          onLoad={() => setScriptReady(true)}
         />
       ) : null}
 
@@ -220,13 +303,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
           </label>
         </div>
 
-        {siteKey ? (
-          <div
-            className="cf-turnstile"
-            data-sitekey={siteKey}
-            data-theme="dark"
-          />
-        ) : null}
+        {siteKey ? <div ref={widgetRef} className="min-h-[65px]" /> : null}
 
         {error && <p className="error-text">{error}</p>}
 
