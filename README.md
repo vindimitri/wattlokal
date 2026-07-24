@@ -48,6 +48,19 @@ npm run dev
 
 Nicht öffentlich verlinken.
 
+### Pending-Cleanup
+
+Täglich (03:00 UTC) löscht Vercel Cron unbestätigte Anmeldungen:
+- Token abgelaufen, oder
+- älter als 7 Tage
+
+Env: `CRON_SECRET` (Vercel setzt `Authorization: Bearer …` beim Cron-Aufruf).
+
+Manuell testen:
+```bash
+curl -H "Authorization: Bearer DEIN_CRON_SECRET" https://www.wattlokal.de/api/cron/cleanup-pending
+```
+
 ## Deploy (Vercel)
 
 1. Repo mit Vercel verbinden  

@@ -55,7 +55,8 @@ Verbesserungen / To-dos
 [x] Admin-Seite + CSV-Export (/admin, ADMIN_SECRET)
 [ ] Service Role bewusst eng halten – API nur nötige Queries, keine Debug-Dumps
 [ ] Audit-Logs – wer wann bestätigt / gelöscht hat (zumindest serverseitig loggen)
-[ ] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen
+[x] Löschkonzept – unbestätigte pending-Einträge nach X Tagen automatisch löschen
+    → Cron /api/cron/cleanup-pending (Token abgelaufen oder älter als 7 Tage)
 [ ] E-Mail-Absender: eigene Domain + SPF/DKIM (wenn Resend produktiv)
 [ ] Subprozessoren in der Datenschutzerklärung nennen
     (Vercel, Supabase, Resend) + AVV prüfen
