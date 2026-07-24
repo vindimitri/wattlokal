@@ -230,3 +230,44 @@ a {
 .rise-delay-2 {
   animation-delay: 240ms;
 }
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 250, 252, 0.2);
+  background: rgba(11, 19, 43, 0.55);
+  color: #ffea00;
+  font-size: 1.75rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.carousel-nav:hover {
+  background: rgba(11, 19, 43, 0.8);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.carousel-fade {
+  animation: carousel-in 480ms ease both;
+}
+
+@keyframes carousel-in {
+  from {
+    opacity: 0.35;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
