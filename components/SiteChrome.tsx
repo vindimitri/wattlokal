@@ -1,50 +1,23 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
-  const pathname = usePathname();
-  const onHome = pathname === "/";
-
   return (
-    <header
-      className={
-        onHome
-          ? "absolute inset-x-0 top-0 z-20"
-          : "relative border-b border-line bg-[color:var(--bg)]"
-      }
-    >
-      <div className="site-shell py-5 flex items-center justify-between">
+    <header className="site-nav sticky top-0 z-50">
+      <div className="site-shell py-3.5 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className={`font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight ${
-            onHome ? "text-[color:var(--bg)]" : "text-ink"
-          }`}
+          className="font-[family-name:var(--font-display)] text-lg sm:text-xl font-semibold tracking-tight text-white shrink-0"
         >
           Wattlokal
         </Link>
-        <nav
-          className={`flex items-center gap-5 text-sm ${
-            onHome ? "text-[color:var(--bg)]/80" : "text-ink-muted"
-          }`}
-        >
-          <Link
-            href="/anmelden"
-            className={onHome ? "hover:text-[color:var(--bg)]" : "hover:text-ink"}
-          >
+        <nav className="flex items-center gap-4 sm:gap-6 text-sm sm:text-[0.95rem] text-white/90">
+          <Link href="/anmelden" className="hover:text-white">
             Mitmachen
           </Link>
-          <Link
-            href="/impressum"
-            className={onHome ? "hover:text-[color:var(--bg)]" : "hover:text-ink"}
-          >
+          <Link href="/impressum" className="hover:text-white">
             Impressum
           </Link>
-          <Link
-            href="/datenschutz"
-            className={onHome ? "hover:text-[color:var(--bg)]" : "hover:text-ink"}
-          >
+          <Link href="/datenschutz" className="hover:text-white">
             Datenschutz
           </Link>
         </nav>

@@ -21,7 +21,7 @@ export default function HomePage() {
           className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/45 to-[color:var(--ink)]/25"
         />
 
-        <div className="site-shell relative z-[1] pb-14 pt-28 sm:pb-20 sm:pt-32 text-[color:var(--bg)]">
+        <div className="site-shell relative z-[1] pb-14 pt-16 sm:pb-20 sm:pt-20 text-[color:var(--bg)]">
           <p className="rise font-[family-name:var(--font-display)] text-[clamp(3.25rem,12vw,7.5rem)] leading-[0.92] font-semibold tracking-tight">
             Wattlokal
           </p>
