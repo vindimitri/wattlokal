@@ -79,7 +79,7 @@ export default async function AdminPage() {
       )}
 
       {rows.length > 0 && (
-        <div className="mt-6 overflow-x-auto rounded-2xl panel-card">
+        <div className="mt-6 overflow-x-auto panel-card">
           <table className="min-w-full text-sm text-left">
             <thead className="border-b border-[rgba(248,250,252,0.14)] text-card-muted">
               <tr>

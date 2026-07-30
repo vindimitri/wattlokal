@@ -284,7 +284,7 @@ export function RegistrationForm({ turnstileSiteKey = "" }: Props) {
             <span>
               Ich willige ein, dass Wattlokal meine Angaben zur Organisation einer
               lokalen Energiegemeinschaft verarbeitet. Details in der{" "}
-              <Link href="/datenschutz" className="underline text-accent">
+              <Link href="/datenschutz" className="underline text-ok">
                 Datenschutzerklärung
               </Link>
               .

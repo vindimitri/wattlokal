@@ -1,80 +1,65 @@
+import Image from "next/image";
 import Link from "next/link";
-import { EnergyCarousel } from "@/components/EnergyCarousel";
+
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2400&q=80";
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden">
+      <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+        <Image
+          src={HERO_IMAGE}
+          alt="Solarpaneele auf Wohnhausdächern in einer Wohnsiedlung"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover hero-image"
+        />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 55% at 85% 15%, rgba(255,234,0,0.22), transparent 55%), radial-gradient(ellipse 55% 45% at 10% 80%, rgba(11,95,255,0.28), transparent 50%), linear-gradient(155deg, #0B132B 0%, #121a33 45%, #1E293B 100%)",
-          }}
+          className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/45 to-[color:var(--ink)]/25"
         />
-        <div className="site-shell min-h-[78vh] flex flex-col justify-end pb-16 pt-24 text-[color:var(--bg)]">
-          <p className="rise font-[family-name:var(--font-display)] text-5xl sm:text-7xl font-semibold tracking-tight max-w-3xl">
+
+        <div className="site-shell relative z-[1] pb-14 pt-28 sm:pb-20 sm:pt-32 text-[color:var(--bg)]">
+          <p className="rise font-[family-name:var(--font-display)] text-[clamp(3.25rem,12vw,7.5rem)] leading-[0.92] font-semibold tracking-tight">
             Wattlokal
           </p>
-          <h1 className="rise rise-delay mt-4 text-2xl sm:text-3xl font-medium max-w-2xl leading-snug text-[color:var(--bg)]">
+          <h1 className="rise rise-delay mt-5 sm:mt-6 max-w-xl text-xl sm:text-2xl font-medium leading-snug">
             Wir teilen unseren Strom in unserer Gemeinde.
           </h1>
-          <p className="rise rise-delay-2 mt-4 max-w-xl text-base sm:text-lg text-slate-300">
-            Erzeuger und Verbraucher finden sich vor Ort. Trag dich ein – wir
-            prüfen gemeinsam, ob ein lokaler Stromkreis machbar ist.
+          <p className="rise rise-delay-2 mt-3 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
+            Erzeuger und Verbraucher finden sich vor Ort – für eine
+            Machbarkeitsstudie in der Nachbarschaft.
           </p>
           <div className="rise rise-delay-2 mt-8">
             <Link href="/anmelden" className="btn">
-              Formular ausfüllen
+              Interesse bekunden
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="site-shell py-16 sm:py-20">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-            Das Motiv
-          </p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-brand-deep leading-tight">
-            Strom bleibt in der Nachbarschaft
+      <section className="site-shell py-16 sm:py-24">
+        <div className="max-w-2xl study-block">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink leading-tight">
+            Zuerst die Studie – noch keine Verträge
           </h2>
-          <p className="mt-4 text-lg text-ink-muted leading-relaxed">
+          <p className="mt-5 text-lg text-ink-muted leading-relaxed">
             Wer eine PV-Anlage hat, speist oft mehr ein, als er selbst braucht.
-            Wer keinen Strom erzeugt, kauft ihn weit weg am Markt. Wattlokal
-            will beides zusammenbringen: überschüssigen Sonnenstrom lokal
-            nutzen – fair, nachvollziehbar und gemeinschaftlich.
+            Wer keinen Strom erzeugt, kauft ihn weit weg am Markt. Wattlokal will
+            beides zusammenbringen: überschüssigen Sonnenstrom lokal nutzen.
           </p>
           <p className="mt-4 text-ink-muted leading-relaxed">
-            Noch geht es nicht um Verträge. Zuerst sammeln wir Interesse und
-            Daten für eine Machbarkeitsstudie. Mit genug Nachbarn prüfen wir,
-            ob ein echter lokaler Stromkreis tragfähig ist.
+            Deshalb sammeln wir zuerst Interesse und Daten. Mit genug Nachbarn
+            prüfen wir, ob ein lokaler Stromkreis tragfähig ist. Deine Anmeldung
+            zählt erst nach der E-Mail-Bestätigung.
           </p>
-        </div>
-
-        <div className="mt-10 max-w-4xl">
-          <EnergyCarousel />
-          <p className="mt-3 text-sm text-ink-muted">
-            Mit den Pfeilen links und rechts durch die Motive blättern.
+          <p className="mt-8">
+            <Link href="/anmelden" className="btn btn-secondary">
+              Zum Formular
+            </Link>
           </p>
-        </div>
-      </section>
-
-      <section className="border-t border-line bg-brand-deep text-[color:var(--bg)]">
-        <div className="site-shell py-14 sm:py-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-          <div className="max-w-xl">
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold">
-              Mitmachen
-            </h2>
-            <p className="mt-3 text-slate-300 leading-relaxed">
-              Ein kurzes Formular reicht. Danach bestätigst du deine E-Mail –
-              erst dann zählt deine Anmeldung.
-            </p>
-          </div>
-          <Link href="/anmelden" className="btn shrink-0">
-            Jetzt Interesse bekunden
-          </Link>
         </div>
       </section>
     </>

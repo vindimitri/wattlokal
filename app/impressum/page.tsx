@@ -17,9 +17,9 @@ export default function ImpressumPage() {
           <h2 className="text-xl font-semibold text-brand-deep">
             Diensteanbieter
           </h2>
-          <div className="mt-3 rounded-2xl panel-card p-5 text-[#F8FAFC]">
+          <div className="mt-3 panel-card p-5">
             <p className="font-semibold">[Name der Person / Organisation]</p>
-            <p className="mt-2 text-card-muted">
+            <p className="mt-2 text-ink-muted">
               [Straße Hausnummer]
               <br />
               [PLZ Ort]

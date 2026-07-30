@@ -25,18 +25,18 @@ export default function DatenschutzPage() {
           <p className="mt-3 text-ink-muted">
             Verantwortlicher im Sinne der DSGVO ist:
           </p>
-          <div className="mt-3 rounded-2xl panel-card p-5 text-[#F8FAFC]">
+          <div className="mt-3 panel-card p-5">
             <p className="font-semibold">[Name der verantwortlichen Person / Organisation]</p>
-            <p className="mt-2 text-card-muted">
+            <p className="mt-2 text-ink-muted">
               [Straße Hausnummer]
               <br />
               [PLZ Ort]
               <br />
               Deutschland
             </p>
-            <p className="mt-3 text-card-muted">
+            <p className="mt-3 text-ink-muted">
               E-Mail:{" "}
-              <a href="mailto:[datenschutz@wattlokal.de]" className="text-accent underline">
+              <a href="mailto:[datenschutz@wattlokal.de]" className="text-ok underline">
                 [datenschutz@wattlokal.de]
               </a>
             </p>
