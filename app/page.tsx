@@ -7,7 +7,7 @@ const HERO_IMAGE =
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+      <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
         <Image
           src={HERO_IMAGE}
           alt="Solarpaneele auf Wohnhausdächern in einer Wohnsiedlung"
@@ -18,17 +18,17 @@ export default function HomePage() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/45 to-[color:var(--ink)]/25"
+          className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/50 to-[color:var(--ink)]/30"
         />
 
-        <div className="site-shell relative z-[1] pb-14 pt-16 sm:pb-20 sm:pt-20 text-[color:var(--bg)]">
-          <p className="rise font-[family-name:var(--font-display)] text-[clamp(3.25rem,12vw,7.5rem)] leading-[0.92] font-semibold tracking-tight">
-            Wattlokal
-          </p>
-          <h1 className="rise rise-delay mt-5 sm:mt-6 max-w-xl text-xl sm:text-2xl font-medium leading-snug">
-            Wir teilen Watt. Watt. Wir. Teilen.
+        <div className="site-shell relative z-[1] py-20 text-center text-[color:var(--bg)]">
+          <h1 className="rise font-[family-name:var(--font-display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
+            Wir teilen Watt
           </h1>
-          <p className="rise rise-delay-2 mt-3 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
+          <p className="rise rise-delay mt-4 text-[clamp(1.15rem,3.5vw,1.85rem)] font-medium tracking-wide text-[color:var(--bg)]/90">
+            Watt.Wir.Teilen
+          </p>
+          <p className="rise rise-delay-2 mx-auto mt-6 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
             Erzeuger und Verbraucher finden sich vor Ort – für eine
             Machbarkeitsstudie in der Nachbarschaft.
           </p>
