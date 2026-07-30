@@ -1,16 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2400&q=80";
-
 export default function HomePage() {
   return (
     <>
       <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
         <Image
-          src={HERO_IMAGE}
-          alt="Solarpaneele auf Wohnhausdächern in einer Wohnsiedlung"
+          src="/hero.png"
+          alt="Wohnsiedlung mit Solaranlagen und lokalem Energieaustausch"
           fill
           priority
           sizes="100vw"
@@ -18,17 +15,18 @@ export default function HomePage() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/50 to-[color:var(--ink)]/30"
+          className="absolute inset-0"
+          style={{ backgroundColor: "rgba(30, 167, 231, 0.05)" }}
         />
 
-        <div className="site-shell relative z-[1] py-20 text-center text-[color:var(--bg)]">
+        <div className="site-shell relative z-[1] py-20 text-center text-ink">
           <h1 className="rise font-[family-name:var(--font-display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
             Watt.Wir.Teilen
           </h1>
-          <p className="rise rise-delay mt-4 text-[clamp(1.15rem,3.5vw,1.85rem)] font-medium tracking-wide text-[color:var(--bg)]/90">
+          <p className="rise rise-delay mt-4 text-[clamp(1.15rem,3.5vw,1.85rem)] font-medium tracking-wide text-ink/85">
             Wir teilen Watt
           </p>
-          <p className="rise rise-delay-2 mx-auto mt-6 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
+          <p className="rise rise-delay-2 mx-auto mt-6 max-w-md text-base sm:text-lg text-ink-muted leading-relaxed">
             Erzeuger und Verbraucher finden sich vor Ort – für eine
             Machbarkeitsstudie in der Nachbarschaft.
           </p>
