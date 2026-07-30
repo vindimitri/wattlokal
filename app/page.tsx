@@ -26,7 +26,7 @@ export default function HomePage() {
             Wattlokal
           </p>
           <h1 className="rise rise-delay mt-5 sm:mt-6 max-w-xl text-xl sm:text-2xl font-medium leading-snug">
-            Wir teilen unseren Strom in unserer Gemeinde.
+            Wir teilen Watt. Watt. Wir. Teilen.
           </h1>
           <p className="rise rise-delay-2 mt-3 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
             Erzeuger und Verbraucher finden sich vor Ort – für eine
