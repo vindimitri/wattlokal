@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: "Wattlokal – Strom teilen in der Gemeinde",
   description:
     "Wir bündeln Erzeuger und Verbraucher vor Ort. Melde dich an für die Machbarkeitsstudie.",
+  icons: {
+    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
