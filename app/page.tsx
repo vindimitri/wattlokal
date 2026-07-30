@@ -23,10 +23,10 @@ export default function HomePage() {
 
         <div className="site-shell relative z-[1] py-20 text-center text-[color:var(--bg)]">
           <h1 className="rise font-[family-name:var(--font-display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
-            Wir teilen Watt
+            Watt.Wir.Teilen
           </h1>
           <p className="rise rise-delay mt-4 text-[clamp(1.15rem,3.5vw,1.85rem)] font-medium tracking-wide text-[color:var(--bg)]/90">
-            Watt.Wir.Teilen
+            Wir teilen Watt
           </p>
           <p className="rise rise-delay-2 mx-auto mt-6 max-w-md text-base sm:text-lg text-[color:var(--bg)]/80 leading-relaxed">
             Erzeuger und Verbraucher finden sich vor Ort – für eine
