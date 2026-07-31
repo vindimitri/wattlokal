@@ -271,25 +271,7 @@ export default function Paragraph42cPage() {
         </div>
       </section>
 
-      <section className="site-shell py-12 sm:py-16 max-w-3xl text-center sm:text-left">
-        <p className="text-lg leading-relaxed text-[color:var(--enwg-navy)]">
-          Mit § 42c EnWG wird Energy Sharing erstmals gesetzlich geregelt und in
-          die bestehenden Strukturen des Energiemarkts integriert. Strom aus
-          erneuerbaren Anlagen kann damit gemeinschaftlich genutzt werden.
-        </p>
-        <p className="mt-4 leading-relaxed text-[color:var(--enwg-muted)]">
-          Der Paragraf definiert dafür konkrete Vorgaben zu Teilnehmern,
-          technischen Voraussetzungen, Messkonzepten und vertraglichen
-          Regelungen. Gleichzeitig zeigt sich: Die praktische Umsetzung bleibt
-          komplex und ist weiterhin mit hohen Anforderungen für alle Beteiligten
-          verbunden.
-        </p>
-        <p className="mt-4 leading-relaxed text-[color:var(--enwg-muted)]">
-          Gemeinschaftliche Energienutzung ist dennoch schon heute möglich –
-          über bestehende Modelle, die deutlich einfacher und praxistauglicher
-          umgesetzt werden.
-        </p>
-      </section>
+
 
       <section className="site-shell py-8 sm:py-12">
         <p className="enwg-kicker">Überblick</p>
