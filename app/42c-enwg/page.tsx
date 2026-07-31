@@ -267,18 +267,6 @@ export default function Paragraph42cPage() {
           <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold leading-tight text-[color:var(--enwg-navy)]">
             § 42c EnWG: Das steckt dahinter
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-[color:var(--enwg-muted)]">
-            Die neue Regelung für Energy Sharing – was sie ermöglicht, wo ihre
-            Grenzen liegen und was heute schon möglich ist.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/#was-ist-wattlokal" className="btn">
-              Mehr über Wattlokal erfahren →
-            </Link>
-            <a href="#vergleich" className="btn btn-secondary bg-white">
-              Direkt zum Vergleich
-            </a>
-          </div>
           <div className="enwg-divider" aria-hidden />
         </div>
       </section>
