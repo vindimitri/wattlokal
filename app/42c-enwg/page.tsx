@@ -367,7 +367,7 @@ export default function Paragraph42cPage() {
             </p>
             <p className="mt-4">
               <a
-                href="https://www.bundesnetzagentur.de/"
+                href="https://www.bundesnetzagentur.de/DE/Vportal/Energie/Energy_Sharing/start.html"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-[#0b4f9c] underline-offset-2 hover:underline"
