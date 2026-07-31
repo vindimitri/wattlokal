@@ -155,6 +155,160 @@ a {
   color: var(--ink-muted);
 }
 
+/* § 42c EnWG page – WSE-inspired pillars & roadmap */
+.enwg-page {
+  --enwg-card: #ffffff;
+  --enwg-soft: #f4f6f8;
+  --enwg-line: #dbe1e6;
+  --enwg-navy: #1a3b44;
+  --enwg-muted: #5a6b73;
+  background: var(--enwg-soft);
+  color: var(--enwg-navy);
+}
+
+.enwg-hero {
+  text-align: center;
+  padding: 3.5rem 0 3rem;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(201, 162, 39, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(11, 79, 156, 0.1), transparent 26%),
+    #fbfcfd;
+}
+
+.enwg-divider {
+  width: 3.5rem;
+  height: 0.28rem;
+  margin: 1.75rem auto 0;
+  background: #c9a227;
+  border-radius: 999px;
+}
+
+.enwg-card {
+  background: var(--enwg-card);
+  border: 1px solid var(--enwg-line);
+  border-radius: 1.1rem;
+  padding: 1.35rem 1.25rem;
+  box-shadow: 0 8px 24px rgba(26, 59, 68, 0.05);
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .enwg-card {
+    padding: 1.5rem 1.45rem;
+  }
+}
+
+.enwg-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-bottom: 0.9rem;
+}
+
+.enwg-icon-yellow { background: #fff4cc; }
+.enwg-icon-blue { background: #dcebff; }
+.enwg-icon-green { background: #ddf5e8; }
+.enwg-icon-orange { background: #ffe8d6; }
+.enwg-icon-purple { background: #ebe4ff; }
+.enwg-icon-teal { background: #d8f3f0; }
+
+.enwg-kicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a8b94;
+}
+
+.roadmap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding-left: 0.35rem;
+}
+
+.roadmap::before {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  top: 1.4rem;
+  bottom: 1.4rem;
+  width: 2px;
+  background: var(--enwg-line);
+}
+
+.roadmap-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.roadmap-num {
+  position: relative;
+  z-index: 1;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: #0b4f9c;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.15rem;
+}
+
+.roadmap-card {
+  background: var(--enwg-card);
+  border: 1px solid var(--enwg-line);
+  border-radius: 1.1rem;
+  padding: 1.2rem 1.2rem 1.3rem;
+  box-shadow: 0 8px 24px rgba(26, 59, 68, 0.05);
+}
+
+.enwg-compare {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  background: var(--enwg-card);
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
+
+.enwg-compare th,
+.enwg-compare td {
+  padding: 1rem 1.1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--enwg-line);
+  vertical-align: top;
+}
+
+.enwg-compare thead th {
+  background: #eef3f7;
+  font-weight: 700;
+}
+
+.enwg-compare tbody th {
+  font-weight: 700;
+  width: 22%;
+  color: var(--enwg-navy);
+}
+
+.enwg-compare td {
+  color: var(--enwg-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
 .panel-card .field label {
   color: var(--ink);
 }

@@ -9,26 +9,38 @@ export const metadata: Metadata = {
 
 const overview = [
   {
+    emoji: "📄",
+    tone: "enwg-icon-yellow",
     title: "Was ist § 42c EnWG?",
     text: "Neue gesetzliche Regelung für Energy Sharing",
   },
   {
+    emoji: "☀️",
+    tone: "enwg-icon-blue",
     title: "Worum geht es?",
     text: "Strom aus erneuerbaren Anlagen kann gemeinsam genutzt werden",
   },
   {
+    emoji: "↔️",
+    tone: "enwg-icon-green",
     title: "Wie wird verteilt?",
     text: "Über das öffentliche Stromnetz mit bilanzieller Zuordnung",
   },
   {
+    emoji: "👥",
+    tone: "enwg-icon-orange",
     title: "Wer kann teilnehmen?",
     text: "Haushalte, kleinere Unternehmen und öffentliche Einrichtungen",
   },
   {
+    emoji: "📟",
+    tone: "enwg-icon-purple",
     title: "Was braucht man?",
     text: "Stromzähler mit viertelstündlicher Messung sowie Verträge zwischen allen Beteiligten",
   },
   {
+    emoji: "📅",
+    tone: "enwg-icon-teal",
     title: "Ab wann gilt es?",
     text: "Seit 1. Juni 2026 in Kraft, schrittweise Erweiterungen geplant",
   },
@@ -36,14 +48,20 @@ const overview = [
 
 const enables = [
   {
+    emoji: "✅",
+    tone: "enwg-icon-green",
     title: "Energy Sharing wird erstmals möglich",
     text: "Die gemeinsame Nutzung von Strom aus erneuerbaren Anlagen ist erstmals gesetzlich geregelt.",
   },
   {
+    emoji: "🔌",
+    tone: "enwg-icon-blue",
     title: "Nutzung über das öffentliche Stromnetz",
     text: "Teilnehmer müssen nicht direkt an die Anlage angeschlossen sein, sondern können über das bestehende Stromnetz eingebunden werden.",
   },
   {
+    emoji: "🔄",
+    tone: "enwg-icon-yellow",
     title: "Neue Form der Stromnutzung",
     text: "Strom wird nicht wie gewohnt geliefert, sondern innerhalb eines geregelten Modells gemeinsam genutzt.",
   },
@@ -78,6 +96,8 @@ const steps = [
 
 const prerequisites = [
   {
+    emoji: "📝",
+    tone: "enwg-icon-yellow",
     title: "Verträge",
     items: [
       "Je nach Umsetzungsmodell können mehrere Vertragsbeziehungen erforderlich sein",
@@ -85,6 +105,8 @@ const prerequisites = [
     ],
   },
   {
+    emoji: "⚙️",
+    tone: "enwg-icon-blue",
     title: "Technische Voraussetzungen",
     items: [
       "Viertelstündliche Messung (z. B. Smart Meter) von Erzeugung und Verbrauch notwendig",
@@ -92,6 +114,8 @@ const prerequisites = [
     ],
   },
   {
+    emoji: "🏢",
+    tone: "enwg-icon-green",
     title: "Organisation & Abwicklung",
     items: [
       "Für die Umsetzung müssen energiewirtschaftliche Prozesse wie Bilanzierung, Marktkommunikation und Abrechnung organisiert werden",
@@ -99,6 +123,8 @@ const prerequisites = [
     ],
   },
   {
+    emoji: "📏",
+    tone: "enwg-icon-orange",
     title: "Rahmenbedingungen",
     items: ["Die Anlage darf nicht primär gewerblich betrieben werden"],
   },
@@ -106,6 +132,8 @@ const prerequisites = [
 
 const challenges = [
   {
+    emoji: "🚫",
+    tone: "enwg-icon-orange",
     title: "Eingeschränkter Teilnehmerkreis",
     items: [
       "Nur Haushalte, KMUs und öffentliche Einrichtungen zugelassen",
@@ -114,6 +142,8 @@ const challenges = [
     note: "Kein universelles Modell für alle Marktakteure",
   },
   {
+    emoji: "📍",
+    tone: "enwg-icon-blue",
     title: "Regionale Begrenzung",
     items: [
       "Teilnahme zunächst nur innerhalb eines Netzgebietes möglich",
@@ -122,6 +152,8 @@ const challenges = [
     note: "Aktuell nur lokal umsetzbar",
   },
   {
+    emoji: "⚡",
+    tone: "enwg-icon-yellow",
     title: "Zusätzlicher Strombezug bleibt notwendig",
     items: [
       "Erzeugung deckt den Bedarf nicht jederzeit",
@@ -130,6 +162,8 @@ const challenges = [
     note: "Ergänzt den klassischen Strombezug, ersetzt ihn aber nicht vollständig",
   },
   {
+    emoji: "📐",
+    tone: "enwg-icon-purple",
     title: "Regulatorische Schwellen bei der Anlagengröße",
     items: [
       "Vereinfachungen gelten nur bis 30 kW / 100 kW (Mehrparteienhäuser)",
@@ -138,6 +172,8 @@ const challenges = [
     note: "Größere Projekte werden deutlich komplexer",
   },
   {
+    emoji: "🧩",
+    tone: "enwg-icon-teal",
     title: "Aufwendige Umsetzung",
     items: [
       "Je nach Umsetzungsmodell sind mehrere Vertragsbeziehungen erforderlich",
@@ -152,8 +188,7 @@ const comparison = [
   {
     label: "Messung",
     enwg: "15-Minuten-Messung (z. B. Smart Meter)",
-    community:
-      "15-Minuten-Messwerte per einfach installierbarem Lesekopf",
+    community: "15-Minuten-Messwerte per einfach installierbarem Lesekopf",
   },
   {
     label: "Teilnehmerkreis",
@@ -197,46 +232,71 @@ const comparison = [
   },
 ];
 
+const benefits = [
+  {
+    emoji: "✨",
+    tone: "enwg-icon-yellow",
+    title: "Einfach umgesetzt",
+    text: "Ein Vertrag, zentrale Abwicklung – keine komplexe Abstimmung zwischen mehreren Beteiligten",
+  },
+  {
+    emoji: "📈",
+    tone: "enwg-icon-green",
+    title: "Für jedes Projekt geeignet",
+    text: "Stromcommunitys sind flexibel skalierbar und ohne Begrenzungen umsetzbar",
+  },
+  {
+    emoji: "🇩🇪",
+    tone: "enwg-icon-blue",
+    title: "Bundesweit nutzbar",
+    text: "Energy Sharing kann standortunabhängig in ganz Deutschland umgesetzt werden",
+  },
+  {
+    emoji: "🤝",
+    tone: "enwg-icon-teal",
+    title: "Alles aus einer Hand",
+    text: "Von energiewirtschaftlichen Prozessen bis zur transparenten Abrechnung lässt sich die Umsetzung zentral organisieren",
+  },
+];
+
 export default function Paragraph42cPage() {
   return (
-    <div className="pb-20">
-      <section className="border-b border-line bg-[color:var(--bg-deep)]">
-        <div className="site-shell py-14 sm:py-20 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-            Rechtlicher Rahmen
-          </p>
-          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold text-ink leading-tight">
+    <div className="enwg-page pb-8">
+      <section className="enwg-hero">
+        <div className="site-shell max-w-3xl">
+          <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-semibold leading-tight text-[color:var(--enwg-navy)]">
             § 42c EnWG: Das steckt dahinter
           </h1>
-          <p className="mt-5 text-lg text-ink-muted leading-relaxed">
+          <p className="mt-5 text-lg leading-relaxed text-[color:var(--enwg-muted)]">
             Die neue Regelung für Energy Sharing – was sie ermöglicht, wo ihre
             Grenzen liegen und was heute schon möglich ist.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/#was-ist-wattlokal" className="btn btn-secondary">
-              Mehr über Stromcommunitys erfahren →
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href="/#was-ist-wattlokal" className="btn">
+              Mehr über Wattlokal erfahren →
             </Link>
-            <a href="#vergleich" className="btn btn-secondary">
+            <a href="#vergleich" className="btn btn-secondary bg-white">
               Direkt zum Vergleich
             </a>
           </div>
+          <div className="enwg-divider" aria-hidden />
         </div>
       </section>
 
-      <section className="site-shell py-12 sm:py-16 max-w-3xl">
-        <p className="text-ink leading-relaxed text-lg">
+      <section className="site-shell py-12 sm:py-16 max-w-3xl text-center sm:text-left">
+        <p className="text-lg leading-relaxed text-[color:var(--enwg-navy)]">
           Mit § 42c EnWG wird Energy Sharing erstmals gesetzlich geregelt und in
           die bestehenden Strukturen des Energiemarkts integriert. Strom aus
           erneuerbaren Anlagen kann damit gemeinschaftlich genutzt werden.
         </p>
-        <p className="mt-4 text-ink-muted leading-relaxed">
+        <p className="mt-4 leading-relaxed text-[color:var(--enwg-muted)]">
           Der Paragraf definiert dafür konkrete Vorgaben zu Teilnehmern,
           technischen Voraussetzungen, Messkonzepten und vertraglichen
           Regelungen. Gleichzeitig zeigt sich: Die praktische Umsetzung bleibt
           komplex und ist weiterhin mit hohen Anforderungen für alle Beteiligten
           verbunden.
         </p>
-        <p className="mt-4 text-ink-muted leading-relaxed">
+        <p className="mt-4 leading-relaxed text-[color:var(--enwg-muted)]">
           Gemeinschaftliche Energienutzung ist dennoch schon heute möglich –
           über bestehende Modelle, die deutlich einfacher und praxistauglicher
           umgesetzt werden.
@@ -244,229 +304,223 @@ export default function Paragraph42cPage() {
       </section>
 
       <section className="site-shell py-8 sm:py-12">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-          Überblick
-        </p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink">
+        <p className="enwg-kicker">Überblick</p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
           Die wichtigsten Punkte zu § 42c EnWG
         </h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {overview.map((item) => (
-            <div key={item.title} className="border-t border-line pt-4">
-              <h3 className="font-semibold text-ink">{item.title}</h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">{item.text}</p>
-            </div>
+            <article key={item.title} className="enwg-card">
+              <span className={`enwg-icon ${item.tone}`} aria-hidden>
+                {item.emoji}
+              </span>
+              <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
+                {item.text}
+              </p>
+            </article>
           ))}
         </div>
       </section>
 
       <section className="site-shell py-8 sm:py-12">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-          Möglichkeiten
-        </p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink">
+        <p className="enwg-kicker">Möglichkeiten</p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
           Was § 42c jetzt ermöglicht
         </h2>
-        <div className="mt-8 grid gap-8 sm:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {enables.map((item) => (
-            <div key={item.title}>
-              <h3 className="font-semibold text-ink text-lg">{item.title}</h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">{item.text}</p>
-            </div>
+            <article key={item.title} className="enwg-card">
+              <span className={`enwg-icon ${item.tone}`} aria-hidden>
+                {item.emoji}
+              </span>
+              <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
+                {item.text}
+              </p>
+            </article>
           ))}
         </div>
       </section>
 
-      <section className="border-y border-line bg-[color:var(--surface)]">
-        <div className="site-shell py-12 sm:py-16 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-            So funktioniert&apos;s
-          </p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink">
+      <section id="logik" className="py-10 sm:py-14 bg-[#eef2f5]">
+        <div className="site-shell max-w-3xl">
+          <p className="enwg-kicker">So funktioniert&apos;s</p>
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
             Die Logik hinter Energy Sharing nach § 42c
           </h2>
-          <p className="mt-5 text-ink-muted leading-relaxed">
-            Die Bundesnetzagentur hat das Dienstleistungsmodell als eine
-            Möglichkeit beschrieben, Energy Sharing innerhalb der bestehenden
-            Marktprozesse umzusetzen. Spezialisierte Dienstleister übernehmen
-            dabei die energiewirtschaftliche Abwicklung – beispielsweise
-            Bilanzierung, Marktkommunikation und Abrechnung.
-          </p>
-          <p className="mt-3">
-            <a
-              href="https://www.bundesnetzagentur.de/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-ok underline underline-offset-2"
-            >
-              Aktuelle Informationen der BNetzA zu Energy Sharing →
-            </a>
-          </p>
-          <ol className="mt-10 space-y-8">
+
+          <div className="mt-6 enwg-card">
+            <span className="enwg-icon enwg-icon-yellow" aria-hidden>
+              💡
+            </span>
+            <p className="leading-relaxed text-[color:var(--enwg-navy)]">
+              Die Bundesnetzagentur hat das Dienstleistungsmodell als eine
+              Möglichkeit beschrieben, Energy Sharing innerhalb der bestehenden
+              Marktprozesse umzusetzen. Spezialisierte Dienstleister übernehmen
+              dabei die energiewirtschaftliche Abwicklung – beispielsweise
+              Bilanzierung, Marktkommunikation und Abrechnung.
+            </p>
+            <p className="mt-4">
+              <a
+                href="https://www.bundesnetzagentur.de/"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-[#0b4f9c] underline-offset-2 hover:underline"
+              >
+                Aktuelle Informationen der BNetzA zu Energy Sharing →
+              </a>
+            </p>
+          </div>
+
+          <div className="mt-10 roadmap">
             {steps.map((step, index) => (
-              <li key={step.title} className="flex gap-4">
-                <span className="shrink-0 font-[family-name:var(--font-display)] text-2xl font-semibold text-[#0b4f9c]">
+              <div key={step.title} className="roadmap-step">
+                <span className="roadmap-num" aria-hidden>
                   {index + 1}
                 </span>
-                <div>
-                  <h3 className="font-semibold text-ink text-lg">{step.title}</h3>
-                  <p className="mt-1 text-ink-muted leading-relaxed">
+                <article className="roadmap-card">
+                  <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
                     {step.text}
                   </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="site-shell py-12 sm:py-16">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-          Voraussetzungen
-        </p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink">
-          Welche Bedingungen erfüllt sein müssen
-        </h2>
-        <div className="mt-8 grid gap-8 sm:grid-cols-2">
-          {prerequisites.map((block) => (
-            <div key={block.title}>
-              <h3 className="font-semibold text-ink text-lg">{block.title}</h3>
-              <ul className="mt-3 space-y-2 text-ink-muted leading-relaxed list-disc pl-5">
-                {block.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-[color:var(--bg-deep)]">
-        <div className="site-shell py-12 sm:py-16">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-            Herausforderungen
-          </p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink max-w-3xl">
-            Wo § 42c an Grenzen stößt
-          </h2>
-          <p className="mt-5 max-w-3xl text-ink-muted leading-relaxed">
-            So vielversprechend § 42c ist – in der praktischen Umsetzung zeigen
-            sich klare Grenzen. Viele Anforderungen machen die Umsetzung
-            komplexer und weniger skalierbar als erwartet.
-          </p>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {challenges.map((block) => (
-              <div key={block.title}>
-                <h3 className="font-semibold text-ink text-lg">{block.title}</h3>
-                <ul className="mt-3 space-y-2 text-ink-muted leading-relaxed list-disc pl-5">
-                  {block.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-sm font-medium text-ink">{block.note}</p>
+                </article>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="vergleich" className="site-shell py-12 sm:py-16">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-          Vergleich
-        </p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink">
+      <section className="site-shell py-10 sm:py-14">
+        <p className="enwg-kicker">Voraussetzungen</p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
+          Welche Bedingungen erfüllt sein müssen
+        </h2>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {prerequisites.map((block) => (
+            <article key={block.title} className="enwg-card">
+              <span className={`enwg-icon ${block.tone}`} aria-hidden>
+                {block.emoji}
+              </span>
+              <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                {block.title}
+              </h3>
+              <ul className="mt-3 space-y-2 text-[color:var(--enwg-muted)] leading-relaxed list-disc pl-5">
+                {block.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-10 sm:py-14 bg-[#eef2f5]">
+        <div className="site-shell">
+          <p className="enwg-kicker">Herausforderungen</p>
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)] max-w-3xl">
+            Wo § 42c an Grenzen stößt
+          </h2>
+          <p className="mt-4 max-w-3xl text-[color:var(--enwg-muted)] leading-relaxed">
+            So vielversprechend § 42c ist – in der praktischen Umsetzung zeigen
+            sich klare Grenzen. Viele Anforderungen machen die Umsetzung
+            komplexer und weniger skalierbar als erwartet.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {challenges.map((block) => (
+              <article key={block.title} className="enwg-card">
+                <span className={`enwg-icon ${block.tone}`} aria-hidden>
+                  {block.emoji}
+                </span>
+                <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                  {block.title}
+                </h3>
+                <ul className="mt-3 space-y-2 text-[color:var(--enwg-muted)] leading-relaxed list-disc pl-5">
+                  {block.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-sm font-semibold text-[color:var(--enwg-navy)]">
+                  {block.note}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="vergleich" className="site-shell py-10 sm:py-14 scroll-mt-24">
+        <p className="enwg-kicker">Vergleich</p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
           § 42c vs. Stromcommunity
         </h2>
-        <p className="mt-4 max-w-3xl text-ink-muted leading-relaxed">
+        <p className="mt-4 max-w-3xl text-[color:var(--enwg-muted)] leading-relaxed">
           Zwei Wege Energy Sharing umzusetzen – mit klaren Unterschieden in der
           Praxis.
         </p>
-
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full min-w-[640px] text-left border-collapse">
+        <div className="mt-8 overflow-x-auto rounded-[1.1rem] border border-[color:var(--enwg-line)]">
+          <table className="enwg-compare">
             <thead>
-              <tr className="border-b border-line">
-                <th className="py-3 pr-4 font-semibold text-ink w-[22%]" />
-                <th className="py-3 pr-4 font-semibold text-ink">§ 42c EnWG</th>
-                <th className="py-3 font-semibold text-ink">Stromcommunity</th>
+              <tr>
+                <th />
+                <th>§ 42c EnWG</th>
+                <th>Stromcommunity</th>
               </tr>
             </thead>
             <tbody>
               {comparison.map((row) => (
-                <tr key={row.label} className="border-b border-line align-top">
-                  <th className="py-4 pr-4 font-semibold text-ink text-sm">
-                    {row.label}
-                  </th>
-                  <td className="py-4 pr-4 text-ink-muted text-sm leading-relaxed">
-                    {row.enwg}
-                  </td>
-                  <td className="py-4 text-ink-muted text-sm leading-relaxed">
-                    {row.community}
-                  </td>
+                <tr key={row.label}>
+                  <th>{row.label}</th>
+                  <td>{row.enwg}</td>
+                  <td>{row.community}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        <p className="mt-8 max-w-3xl text-ink-muted leading-relaxed">
-          Beide Modelle basieren auf einer rechnerischen Zuordnung und nutzen
-          das bestehende Stromnetz. Die Unterschiede liegen vor allem im
-          gesetzlichen Anwendungsbereich, den regulatorischen Vorgaben und der
-          Flexibilität der Umsetzung.
-        </p>
-        <p className="mt-4 max-w-3xl text-ink-muted leading-relaxed">
-          Stromcommunitys sind kein neues Konzept im Rahmen von § 42c, sondern
-          bereits seit mehreren Jahren in der Praxis erprobt. Wattlokal prüft
-          mit einer Machbarkeitsstudie, ob und wie eine lokale Energiegemeinschaft
-          für Erzeuger und Verbraucher vor Ort tragfähig ist.
-        </p>
-        <p className="mt-6">
-          <Link href="/#was-ist-wattlokal" className="btn btn-secondary">
-            Mehr über Wattlokal erfahren →
-          </Link>
-        </p>
+        <div className="mt-8 enwg-card max-w-3xl">
+          <p className="text-[color:var(--enwg-muted)] leading-relaxed">
+            Beide Modelle basieren auf einer rechnerischen Zuordnung und nutzen
+            das bestehende Stromnetz. Die Unterschiede liegen vor allem im
+            gesetzlichen Anwendungsbereich, den regulatorischen Vorgaben und der
+            Flexibilität der Umsetzung.
+          </p>
+          <p className="mt-4 text-[color:var(--enwg-muted)] leading-relaxed">
+            Stromcommunitys sind kein neues Konzept im Rahmen von § 42c, sondern
+            bereits seit mehreren Jahren in der Praxis erprobt. Wattlokal prüft
+            mit einer Machbarkeitsstudie, ob und wie eine lokale
+            Energiegemeinschaft für Erzeuger und Verbraucher vor Ort tragfähig
+            ist.
+          </p>
+        </div>
       </section>
 
-      <section className="border-t border-line bg-[color:var(--surface)]">
-        <div className="site-shell py-12 sm:py-16">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
-            Vielseitige Benefits
-          </p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-ink max-w-3xl">
+      <section className="py-10 sm:py-14 bg-[#eef2f5]">
+        <div className="site-shell">
+          <p className="enwg-kicker">Vielseitige Benefits</p>
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)] max-w-3xl">
             Warum Stromcommunitys heute die einfachere Lösung sind
           </h2>
-          <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <h3 className="font-semibold text-ink text-lg">Einfach umgesetzt</h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">
-                Ein Vertrag, zentrale Abwicklung – keine komplexe Abstimmung
-                zwischen mehreren Beteiligten
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-ink text-lg">
-                Für jedes Projekt geeignet
-              </h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">
-                Stromcommunitys sind flexibel skalierbar und ohne Begrenzungen
-                umsetzbar
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-ink text-lg">Bundesweit nutzbar</h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">
-                Energy Sharing kann standortunabhängig in ganz Deutschland
-                umgesetzt werden
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-ink text-lg">Alles aus einer Hand</h3>
-              <p className="mt-2 text-ink-muted leading-relaxed">
-                Von energiewirtschaftlichen Prozessen bis zur transparenten
-                Abrechnung lässt sich die Umsetzung zentral organisieren
-              </p>
-            </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {benefits.map((item) => (
+              <article key={item.title} className="enwg-card">
+                <span className={`enwg-icon ${item.tone}`} aria-hidden>
+                  {item.emoji}
+                </span>
+                <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
+                  {item.text}
+                </p>
+              </article>
+            ))}
           </div>
           <p className="mt-10">
             <Link href="/anmelden" className="btn">
