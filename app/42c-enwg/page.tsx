@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "§ 42c EnWG – Energy Sharing einfach erklärt | Wattlokal",
@@ -184,33 +183,6 @@ const challenges = [
   },
 ];
 
-const benefits = [
-  {
-    emoji: "✨",
-    tone: "enwg-icon-yellow",
-    title: "Einfach umgesetzt",
-    text: "Ein Vertrag, zentrale Abwicklung – keine komplexe Abstimmung zwischen mehreren Beteiligten",
-  },
-  {
-    emoji: "📈",
-    tone: "enwg-icon-green",
-    title: "Für jedes Projekt geeignet",
-    text: "Stromcommunitys sind flexibel skalierbar und ohne Begrenzungen umsetzbar",
-  },
-  {
-    emoji: "🇩🇪",
-    tone: "enwg-icon-blue",
-    title: "Bundesweit nutzbar",
-    text: "Energy Sharing kann standortunabhängig in ganz Deutschland umgesetzt werden",
-  },
-  {
-    emoji: "🤝",
-    tone: "enwg-icon-teal",
-    title: "Alles aus einer Hand",
-    text: "Von energiewirtschaftlichen Prozessen bis zur transparenten Abrechnung lässt sich die Umsetzung zentral organisieren",
-  },
-];
-
 export default function Paragraph42cPage() {
   return (
     <div className="enwg-page pb-8">
@@ -374,35 +346,6 @@ export default function Paragraph42cPage() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="py-10 sm:py-14 bg-[#eef2f5]">
-        <div className="site-shell">
-          <p className="enwg-kicker">Vielseitige Benefits</p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)] max-w-3xl">
-            Warum Stromcommunitys heute die einfachere Lösung sind
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.map((item) => (
-              <article key={item.title} className="enwg-card">
-                <span className={`enwg-icon ${item.tone}`} aria-hidden>
-                  {item.emoji}
-                </span>
-                <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
-                  {item.text}
-                </p>
-              </article>
-            ))}
-          </div>
-          <p className="mt-10">
-            <Link href="/anmelden" className="btn">
-              Interesse an Wattlokal bekunden
-            </Link>
-          </p>
         </div>
       </section>
     </div>
