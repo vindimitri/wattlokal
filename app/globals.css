@@ -275,39 +275,6 @@ a {
   box-shadow: 0 8px 24px rgba(26, 59, 68, 0.05);
 }
 
-.enwg-compare {
-  width: 100%;
-  min-width: 640px;
-  border-collapse: collapse;
-  background: var(--enwg-card);
-  border-radius: 1.1rem;
-  overflow: hidden;
-}
-
-.enwg-compare th,
-.enwg-compare td {
-  padding: 1rem 1.1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--enwg-line);
-  vertical-align: top;
-}
-
-.enwg-compare thead th {
-  background: #eef3f7;
-  font-weight: 700;
-}
-
-.enwg-compare tbody th {
-  font-weight: 700;
-  width: 22%;
-  color: var(--enwg-navy);
-}
-
-.enwg-compare td {
-  color: var(--enwg-muted);
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
 
 .panel-card .field label {
   color: var(--ink);

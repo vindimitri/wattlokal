@@ -184,54 +184,6 @@ const challenges = [
   },
 ];
 
-const comparison = [
-  {
-    label: "Messung",
-    enwg: "15-Minuten-Messung (z. B. Smart Meter)",
-    community: "15-Minuten-Messwerte per einfach installierbarem Lesekopf",
-  },
-  {
-    label: "Teilnehmerkreis",
-    enwg: "Beschränkt auf Haushalte, KMUs und öffentliche Einrichtungen",
-    community: "Offen für alle Nutzergruppen",
-  },
-  {
-    label: "Regionale Begrenzung",
-    enwg: "Auf ein Netzgebiet beschränkt",
-    community: "Bundesweit umsetzbar",
-  },
-  {
-    label: "Anlagen & Betrieb",
-    enwg: "Begrenzte Anlagengröße (30/100 kW), nicht primär gewerblicher Betrieb",
-    community: "Keine Begrenzungen, auch gewerblich möglich",
-  },
-  {
-    label: "Umsetzung",
-    enwg: "Je nach Umsetzungsmodell mehrere Vertragsbeziehungen und Abstimmungen",
-    community: "Ein Vertrag, zentrale Abwicklung",
-  },
-  {
-    label: "Flexibilität",
-    enwg: "Regulatorisch eingeschränkt",
-    community: "Frei gestaltbar",
-  },
-  {
-    label: "Transparenz",
-    enwg: "Keine einheitliche Darstellung",
-    community: "Zentrale Plattform",
-  },
-  {
-    label: "Reststrom-Versorgung",
-    enwg: "Zusätzlicher Stromliefervertrag erforderlich",
-    community: "Automatische Lieferung fehlender Strommengen",
-  },
-  {
-    label: "Umsetzungsstand",
-    enwg: "Einführung ab 2026, Prozesse im Aufbau",
-    community: "Bereits heute praxiserprobt im Einsatz",
-  },
-];
-
 const benefits = [
   {
     emoji: "✨",
@@ -422,52 +374,6 @@ export default function Paragraph42cPage() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="vergleich" className="site-shell py-10 sm:py-14 scroll-mt-24">
-        <p className="enwg-kicker">Vergleich</p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)]">
-          § 42c vs. Stromcommunity
-        </h2>
-        <p className="mt-4 max-w-3xl text-[color:var(--enwg-muted)] leading-relaxed">
-          Zwei Wege Energy Sharing umzusetzen – mit klaren Unterschieden in der
-          Praxis.
-        </p>
-        <div className="mt-8 overflow-x-auto rounded-[1.1rem] border border-[color:var(--enwg-line)]">
-          <table className="enwg-compare">
-            <thead>
-              <tr>
-                <th />
-                <th>§ 42c EnWG</th>
-                <th>Stromcommunity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparison.map((row) => (
-                <tr key={row.label}>
-                  <th>{row.label}</th>
-                  <td>{row.enwg}</td>
-                  <td>{row.community}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="mt-8 enwg-card max-w-3xl">
-          <p className="text-[color:var(--enwg-muted)] leading-relaxed">
-            Beide Modelle basieren auf einer rechnerischen Zuordnung und nutzen
-            das bestehende Stromnetz. Die Unterschiede liegen vor allem im
-            gesetzlichen Anwendungsbereich, den regulatorischen Vorgaben und der
-            Flexibilität der Umsetzung.
-          </p>
-          <p className="mt-4 text-[color:var(--enwg-muted)] leading-relaxed">
-            Stromcommunitys sind kein neues Konzept im Rahmen von § 42c, sondern
-            bereits seit mehreren Jahren in der Praxis erprobt. Wattlokal prüft
-            mit einer Machbarkeitsstudie, ob und wie eine lokale
-            Energiegemeinschaft für Erzeuger und Verbraucher vor Ort tragfähig
-            ist.
-          </p>
         </div>
       </section>
 
