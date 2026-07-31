@@ -213,7 +213,7 @@ export default function Paragraph42cPage() {
             Grenzen liegen und was heute schon möglich ist.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/#konzept" className="btn btn-secondary">
+            <Link href="/#was-ist-wattlokal" className="btn btn-secondary">
               Mehr über Stromcommunitys erfahren →
             </Link>
             <a href="#vergleich" className="btn btn-secondary">
@@ -422,7 +422,7 @@ export default function Paragraph42cPage() {
           für Erzeuger und Verbraucher vor Ort tragfähig ist.
         </p>
         <p className="mt-6">
-          <Link href="/#konzept" className="btn btn-secondary">
+          <Link href="/#was-ist-wattlokal" className="btn btn-secondary">
             Mehr über Wattlokal erfahren →
           </Link>
         </p>

@@ -116,6 +116,45 @@ a {
   border-radius: 0.25rem;
 }
 
+.content-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  padding: 1.5rem 1.35rem;
+}
+
+@media (min-width: 640px) {
+  .content-box {
+    padding: 1.75rem 1.75rem;
+  }
+}
+
+.stat-pillar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid #0b4f9c;
+  border-radius: 0.25rem;
+  padding: 1.5rem 1.35rem;
+  height: 100%;
+}
+
+.stat-pillar .stat-value {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 650;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.section-kicker {
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
 .panel-card .field label {
   color: var(--ink);
 }

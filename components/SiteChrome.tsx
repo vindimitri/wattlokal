@@ -11,7 +11,7 @@ export function SiteHeader() {
           Wattlokal
         </Link>
         <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 sm:gap-x-6 text-sm sm:text-[0.95rem] text-white/90">
-          <Link href="/#konzept" className="hover:text-white">
+          <Link href="/#was-ist-wattlokal" className="hover:text-white">
             Konzept
           </Link>
           <Link href="/42c-enwg" className="hover:text-white">
