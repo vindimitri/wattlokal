@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
   return (
@@ -122,47 +123,7 @@ export default function HomePage() {
               Überschuss bekommen.
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <article className="enwg-card">
-                <span className="enwg-icon enwg-icon-orange" aria-hidden>
-                  💶
-                </span>
-                <p className="text-sm font-semibold uppercase tracking-wide text-[color:var(--enwg-muted)]">
-                  Verbraucher zahlen
-                </p>
-                <p className="mt-3 font-[family-name:var(--font-display)] text-[clamp(2.25rem,5vw,3.25rem)] font-semibold leading-none text-[color:var(--enwg-navy)] tracking-tight">
-                  35&nbsp;ct
-                </p>
-                <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
-                  pro{" "}
-                  <strong className="font-semibold text-[color:var(--enwg-navy)]">
-                    Kilowattstunde
-                  </strong>{" "}
-                  – Durchschnittspreis für Strom
-                </p>
-              </article>
-              <article className="enwg-card">
-                <span className="enwg-icon enwg-icon-yellow" aria-hidden>
-                  ☀️
-                </span>
-                <p className="text-sm font-semibold uppercase tracking-wide text-[color:var(--enwg-muted)]">
-                  Erzeuger bekommen
-                </p>
-                <p className="mt-3 font-[family-name:var(--font-display)] text-[clamp(2.25rem,5vw,3.25rem)] font-semibold leading-none text-[color:var(--enwg-navy)] tracking-tight">
-                  7&nbsp;ct
-                </p>
-                <p className="mt-2 text-[color:var(--enwg-muted)] leading-relaxed">
-                  pro{" "}
-                  <strong className="font-semibold text-[color:var(--enwg-navy)]">
-                    Kilowattstunde
-                  </strong>{" "}
-                  – typischer Verkaufspreis mit{" "}
-                  <strong className="font-semibold text-[color:var(--enwg-navy)]">
-                    Solaranlage
-                  </strong>
-                </p>
-              </article>
-            </div>
+            <PriceGapGraphic />
 
             <article className="mt-4 enwg-card max-w-3xl">
               <span className="enwg-icon enwg-icon-blue" aria-hidden>

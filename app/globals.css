@@ -418,7 +418,57 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .hero-image,
-  .study-block {
-    animation: none;
+  .study-block,
+  .price-gap-pulse,
+  .price-gap-dot,
+  .price-gap-path {
+    animation: none !important;
+  }
+}
+
+@keyframes price-gap-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 8px 28px rgba(5, 150, 105, 0.22),
+      0 0 0 8px rgba(16, 185, 129, 0.08);
+  }
+}
+
+.price-gap-pulse {
+  animation: price-gap-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes price-gap-draw {
+  from {
+    stroke-dashoffset: 24;
+    opacity: 0.35;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.price-gap-path {
+  stroke-dasharray: 8 10;
+  animation: price-gap-draw 1.6s ease-out both;
+}
+
+.price-gap-dot {
+  filter: drop-shadow(0 0 4px rgba(52, 211, 153, 0.9));
+}
+
+@keyframes price-gap-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
