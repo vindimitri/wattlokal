@@ -18,6 +18,10 @@ export default function HomePage() {
           className="absolute inset-0"
           style={{ backgroundColor: "rgba(30, 167, 231, 0.05)" }}
         />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-black/45 via-black/20 to-transparent"
+        />
 
         <div className="site-shell relative z-[1] py-20 text-center text-ink">
           <h1 className="rise font-[family-name:var(--font-display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
