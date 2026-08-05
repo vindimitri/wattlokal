@@ -14,7 +14,8 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://images.unsplash.com",
+      "img-src 'self' data: blob:",
+      "media-src 'self'",
       "font-src 'self' data:",
       "connect-src 'self' https://challenges.cloudflare.com",
       "frame-src https://challenges.cloudflare.com",
@@ -26,15 +27,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-    ],
-  },
   async redirects() {
     return [
       {
@@ -61,7 +53,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/kling_vid.mp4",
+        source: "/hero-mobile.webm",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        source: "/hero-poster.jpg",
         headers: [
           {
             key: "Cache-Control",

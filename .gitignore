@@ -43,3 +43,14 @@ api-keys.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local source media / encode leftovers (only optimized public/ assets ship)
+/*.mp4
+/*.webm
+/*.mov
+/Mein Video*
+/webpmvid.webm
+/wattlokal_*.png
+public/*.tmp.*
+*.tmp.*
+ffmpeg2pass-*.log

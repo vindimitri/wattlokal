@@ -1,48 +1,16 @@
-import Link from "next/link";
 import { preload } from "react-dom";
+import Link from "next/link";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
-  // Poster first for fast LCP paint while WebM buffers
-  preload("/hero.png", { as: "image" });
+  // Instant hero paint before video buffers
+  preload("/hero-poster.jpg", { as: "image" });
 
   return (
     <>
-      <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
+      <section className="relative min-h-[100svh] overflow-hidden" aria-label="Hero">
         <HeroVideo />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ backgroundColor: "rgba(30, 167, 231, 0.05)" }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-black/45 via-black/20 to-transparent"
-        />
-
-        <div className="site-shell relative z-[1] py-20 text-center text-ink">
-          <h1 className="rise font-[family-name:var(--font-display)] text-[clamp(2.5rem,8vw,5.5rem)] leading-[1.05] font-semibold tracking-tight">
-            Watt.Wir.Teilen
-          </h1>
-          <p className="rise rise-delay mt-4 text-[clamp(1.15rem,3.5vw,1.85rem)] font-medium tracking-wide text-ink/85">
-            Wir teilen Watt
-          </p>
-          <p className="rise rise-delay-2 mx-auto mt-6 max-w-md text-base sm:text-lg text-ink-muted leading-relaxed">
-            Eine <strong className="font-semibold text-ink">Gemeinschaft</strong>,
-            die <strong className="font-semibold text-ink">Watt</strong> teilt –
-            für <strong className="font-semibold text-ink">Erzeuger</strong> und{" "}
-            <strong className="font-semibold text-ink">Verbraucher</strong>.
-          </p>
-          <div className="rise rise-delay-2 mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/anmelden" className="btn">
-              Interesse bekunden
-            </Link>
-            <a href="#was-ist-wattlokal" className="btn btn-secondary">
-              Mehr erfahren
-            </a>
-          </div>
-        </div>
       </section>
 
       <div className="enwg-page">

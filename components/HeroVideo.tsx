@@ -1,20 +1,38 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type ConnectionLike = {
+  saveData?: boolean;
+  effectiveType?: string;
+};
+
+function shouldDeferHeavyVideo() {
+  if (typeof navigator === "undefined") return false;
+  const connection = (navigator as Navigator & { connection?: ConnectionLike })
+    .connection;
+  if (!connection) return false;
+  if (connection.saveData) return true;
+  return connection.effectiveType === "slow-2g" || connection.effectiveType === "2g";
+}
 
 /**
- * Hero background video — efficient embed:
- * - WebM first (smaller/modern), MP4 fallback (Safari/older)
- * - muted + playsInline + autoPlay required for autoplay policies
- * - poster for instant paint while video buffers (helps LCP)
- * - preload="auto" because this is above-the-fold hero (must start ASAP)
- * - loop for endless playback
- * - respects prefers-reduced-motion
+ * Hero video with friendly loading:
+ * - Poster paints immediately
+ * - preload=metadata (not auto) so we don't yank the full file first
+ * - Mobile gets a smaller 1080p source
+ * - Slow connections / Save-Data keep the poster only
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [allowVideo, setAllowVideo] = useState(true);
 
   useEffect(() => {
+    if (shouldDeferHeavyVideo()) {
+      setAllowVideo(false);
+      return;
+    }
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -27,9 +45,7 @@ export function HeroVideo() {
         return;
       }
       video.setAttribute("autoplay", "");
-      void video.play().catch(() => {
-        /* autoplay may be blocked until interaction */
-      });
+      void video.play().catch(() => {});
     };
 
     applyMotionPreference();
@@ -39,26 +55,44 @@ export function HeroVideo() {
       motionQuery.removeEventListener("change", applyMotionPreference);
       video.pause();
     };
-  }, []);
+  }, [allowVideo]);
+
+  if (!allowVideo) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src="/hero-poster.jpg"
+        alt=""
+        width={1280}
+        height={720}
+        className="absolute inset-0 h-full w-full object-cover"
+        aria-hidden
+      />
+    );
+  }
 
   return (
     <video
       ref={videoRef}
       className="absolute inset-0 h-full w-full object-cover"
-      poster="/hero.png"
-      width={1920}
-      height={1080}
+      poster="/hero-poster.jpg"
+      width={3840}
+      height={2160}
       muted
       playsInline
       loop
       autoPlay
-      preload="auto"
+      preload="metadata"
       disablePictureInPicture
       disableRemotePlayback
-      aria-hidden
+      aria-label="Wattlokal Hero"
     >
+      <source
+        src="/hero-mobile.webm"
+        type="video/webm"
+        media="(max-width: 768px)"
+      />
       <source src="/hero.webm" type="video/webm" />
-      <source src="/kling_vid.mp4" type="video/mp4" />
     </video>
   );
 }
