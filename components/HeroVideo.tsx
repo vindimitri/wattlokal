@@ -1,26 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /** Bump when hero media files are replaced (cache bust). */
-const HERO_V = "3";
+const HERO_V = "4";
 
 /**
- * Hero: final-video encodes in /public
- * - WebM desktop + mobile, MP4 Safari fallback
- * - Desktop: direct video; mobile: poster while buffering
+ * Poster paints immediately so the hero is never a black void
+ * while WebM/MP4 buffers. Video replaces it as soon as playback starts.
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    const sync = () => setIsMobile(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -54,8 +44,8 @@ export function HeroVideo() {
   return (
     <video
       ref={videoRef}
-      className="absolute inset-0 h-full w-full object-cover bg-black"
-      poster={isMobile ? `/hero-poster.jpg?v=${HERO_V}` : undefined}
+      className="absolute inset-0 h-full w-full object-cover"
+      poster={`/hero-poster.jpg?v=${HERO_V}`}
       width={3840}
       height={2160}
       muted
