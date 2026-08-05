@@ -1,8 +1,12 @@
 import Link from "next/link";
+import { preload } from "react-dom";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
+  // Poster first for fast LCP paint while WebM buffers
+  preload("/hero.png", { as: "image" });
+
   return (
     <>
       <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
