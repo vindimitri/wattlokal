@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
@@ -14,19 +15,6 @@ const CTA = {
   label: "Interesse bekunden",
   href: "/anmelden",
 } as const;
-
-function BoltIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <path d="M13 2 4.5 13.5h6L9 22l10-13h-6L13 2Z" />
-    </svg>
-  );
-}
 
 function MenuIcon() {
   return (
@@ -106,15 +94,15 @@ export function SiteHeader() {
             href="/"
             className="flex shrink-0 items-center gap-2 transition-opacity duration-300 hover:opacity-90"
           >
-            <span
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-300 ${
-                solid
-                  ? "bg-emerald-50 text-emerald-600"
-                  : "bg-white/15 text-emerald-300"
-              }`}
-            >
-              <BoltIcon className="h-5 w-5" />
-            </span>
+            <Image
+              src="/logo.svg"
+              alt=""
+              width={36}
+              height={36}
+              className="h-9 w-9"
+              unoptimized
+              priority
+            />
             <span
               className={`font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight transition-colors duration-300 ${
                 solid ? "text-slate-800" : "text-white"

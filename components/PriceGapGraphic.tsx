@@ -124,16 +124,8 @@ function ApartmentIcon() {
 
 function ShareBoltIcon() {
   return (
-    <svg aria-hidden viewBox="0 0 48 48" className="h-10 w-10" fill="none">
-      <circle cx="24" cy="24" r="18" fill="#ecfdf5" stroke="#059669" strokeWidth="1.75" />
-      <path
-        d="M26 12 18 26h7l-2 10 9-15h-7l1-9Z"
-        fill="#10b981"
-        stroke="#047857"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/logo.svg" alt="" width={40} height={40} className="h-10 w-10" />
   );
 }
 

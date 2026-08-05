@@ -6,6 +6,25 @@ export const metadata: Metadata = {
     "Die neue Regelung für Energy Sharing – was sie ermöglicht, wo ihre Grenzen liegen und was heute schon möglich ist.",
 };
 
+function CardIcon({ emoji, tone }: { emoji: string; tone: string }) {
+  return (
+    <span className={`enwg-icon ${tone}`} aria-hidden>
+      {emoji === "logo" ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src="/logo.svg"
+          alt=""
+          width={28}
+          height={28}
+          className="h-7 w-7"
+        />
+      ) : (
+        emoji
+      )}
+    </span>
+  );
+}
+
 const overview = [
   {
     emoji: "📄",
@@ -151,7 +170,7 @@ const challenges = [
     note: "Aktuell nur lokal umsetzbar",
   },
   {
-    emoji: "⚡",
+    emoji: "logo",
     tone: "enwg-icon-yellow",
     title: "Zusätzlicher Strombezug bleibt notwendig",
     items: [
@@ -205,9 +224,7 @@ export default function Paragraph42cPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {overview.map((item) => (
             <article key={item.title} className="enwg-card">
-              <span className={`enwg-icon ${item.tone}`} aria-hidden>
-                {item.emoji}
-              </span>
+              <CardIcon emoji={item.emoji} tone={item.tone} />
               <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
                 {item.title}
               </h3>
@@ -227,9 +244,7 @@ export default function Paragraph42cPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {enables.map((item) => (
             <article key={item.title} className="enwg-card">
-              <span className={`enwg-icon ${item.tone}`} aria-hidden>
-                {item.emoji}
-              </span>
+              <CardIcon emoji={item.emoji} tone={item.tone} />
               <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
                 {item.title}
               </h3>
@@ -299,9 +314,7 @@ export default function Paragraph42cPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {prerequisites.map((block) => (
             <article key={block.title} className="enwg-card">
-              <span className={`enwg-icon ${block.tone}`} aria-hidden>
-                {block.emoji}
-              </span>
+              <CardIcon emoji={block.emoji} tone={block.tone} />
               <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
                 {block.title}
               </h3>
@@ -329,9 +342,7 @@ export default function Paragraph42cPage() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {challenges.map((block) => (
               <article key={block.title} className="enwg-card">
-                <span className={`enwg-icon ${block.tone}`} aria-hidden>
-                  {block.emoji}
-                </span>
+                <CardIcon emoji={block.emoji} tone={block.tone} />
                 <h3 className="font-semibold text-lg text-[color:var(--enwg-navy)]">
                   {block.title}
                 </h3>
