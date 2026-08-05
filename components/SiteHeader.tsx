@@ -17,7 +17,6 @@ const CTA = {
 
 /** Mid orange from logo.svg house gradient */
 const LOGO_ORANGE = "#f97316";
-const LOGO_ORANGE_DARK = "#c2410c";
 
 
 function MenuIcon() {
@@ -82,7 +81,8 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
-  const solid = scrolled || mobileOpen || !isHome;
+  // Home hero: transparent bar → white text. After scroll (or subpages): white bar → black text.
+  const solid = isHome ? scrolled || mobileOpen : true;
 
   return (
     <>
@@ -141,22 +141,15 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <Link
               href={CTA.href}
-              className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+              className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 bg-transparent px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                 solid
-                  ? "border-transparent text-white shadow-sm hover:brightness-95"
-                  : "bg-transparent text-white hover:bg-orange-500/15"
+                  ? "text-black hover:bg-orange-50"
+                  : "text-white hover:bg-white/10"
               }`}
-              style={
-                solid
-                  ? {
-                      backgroundColor: LOGO_ORANGE,
-                      outlineColor: LOGO_ORANGE,
-                    }
-                  : {
-                      borderColor: LOGO_ORANGE,
-                      outlineColor: LOGO_ORANGE,
-                    }
-              }
+              style={{
+                borderColor: LOGO_ORANGE,
+                outlineColor: LOGO_ORANGE,
+              }}
             >
               {CTA.label}
             </Link>
@@ -242,11 +235,8 @@ export function SiteHeader() {
               <Link
                 href={CTA.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex w-full items-center justify-center rounded-lg border-2 px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:brightness-95"
-                style={{
-                  backgroundColor: LOGO_ORANGE,
-                  borderColor: LOGO_ORANGE_DARK,
-                }}
+                className="flex w-full items-center justify-center rounded-lg border-2 bg-transparent px-4 py-3 text-sm font-semibold text-black transition-all duration-200 hover:bg-orange-50"
+                style={{ borderColor: LOGO_ORANGE }}
               >
                 {CTA.label}
               </Link>
