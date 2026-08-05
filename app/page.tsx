@@ -1,12 +1,8 @@
-import { preload } from "react-dom";
 import Link from "next/link";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
-  // Instant hero paint before video buffers
-  preload("/hero-poster.jpg", { as: "image" });
-
   return (
     <>
       <section className="relative min-h-[100svh] overflow-hidden" aria-label="Hero">

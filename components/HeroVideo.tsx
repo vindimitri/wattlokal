@@ -16,20 +16,27 @@ function shouldDeferHeavyVideo() {
   return connection.effectiveType === "slow-2g" || connection.effectiveType === "2g";
 }
 
+function isMobileViewport() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
 /**
- * Hero video with friendly loading:
- * - Poster paints immediately
- * - preload=metadata (not auto) so we don't yank the full file first
- * - Mobile gets a smaller 1080p source
- * - Slow connections / Save-Data keep the poster only
+ * Desktop: video immediately (no poster).
+ * Mobile: smaller WebM + poster while it buffers.
+ * Save-Data / 2G: poster only.
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [allowVideo, setAllowVideo] = useState(true);
+  const [mode, setMode] = useState<"video" | "poster-only">("video");
+  const [usePoster, setUsePoster] = useState(false);
 
   useEffect(() => {
+    const mobile = isMobileViewport();
+    setUsePoster(mobile);
+
     if (shouldDeferHeavyVideo()) {
-      setAllowVideo(false);
+      setMode("poster-only");
       return;
     }
 
@@ -55,9 +62,9 @@ export function HeroVideo() {
       motionQuery.removeEventListener("change", applyMotionPreference);
       video.pause();
     };
-  }, [allowVideo]);
+  }, [mode]);
 
-  if (!allowVideo) {
+  if (mode === "poster-only") {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -74,15 +81,15 @@ export function HeroVideo() {
   return (
     <video
       ref={videoRef}
-      className="absolute inset-0 h-full w-full object-cover"
-      poster="/hero-poster.jpg"
+      className="absolute inset-0 h-full w-full object-cover bg-black"
+      poster={usePoster ? "/hero-poster.jpg" : undefined}
       width={3840}
       height={2160}
       muted
       playsInline
       loop
       autoPlay
-      preload="metadata"
+      preload={usePoster ? "metadata" : "auto"}
       disablePictureInPicture
       disableRemotePlayback
       aria-label="Wattlokal Hero"
