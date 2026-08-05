@@ -62,6 +62,15 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/hero.mp4",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
         source: "/hero-poster.jpg",
         headers: [
           {
