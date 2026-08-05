@@ -1,15 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+/** Bump when hero media files are replaced (cache bust). */
+const HERO_V = "3";
 
 /**
- * Hero video:
- * - WebM first (Chrome/Firefox/Edge), MP4 fallback (Safari)
- * - Desktop: no poster, preload auto
- * - Mobile: poster while buffering, smaller WebM when supported
+ * Hero: final-video encodes in /public
+ * - WebM desktop + mobile, MP4 Safari fallback
+ * - Desktop: direct video; mobile: poster while buffering
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -24,7 +35,6 @@ export function HeroVideo() {
       }
       video.muted = true;
       void video.play().catch(() => {
-        // Retry once media can play — some browsers block the first attempt
         const onCanPlay = () => {
           void video.play().catch(() => {});
         };
@@ -45,9 +55,9 @@ export function HeroVideo() {
     <video
       ref={videoRef}
       className="absolute inset-0 h-full w-full object-cover bg-black"
-      poster="/hero-poster.jpg"
-      width={1920}
-      height={1080}
+      poster={isMobile ? `/hero-poster.jpg?v=${HERO_V}` : undefined}
+      width={3840}
+      height={2160}
       muted
       playsInline
       loop
@@ -57,14 +67,13 @@ export function HeroVideo() {
       disableRemotePlayback
       aria-label="Wattlokal Hero"
     >
-      {/* Order: browser picks first supported. Mobile WebM only if media matches. */}
       <source
-        src="/hero-mobile.webm"
+        src={`/hero-mobile.webm?v=${HERO_V}`}
         type="video/webm"
         media="(max-width: 768px)"
       />
-      <source src="/hero.webm" type="video/webm" />
-      <source src="/hero.mp4" type="video/mp4" />
+      <source src={`/hero.webm?v=${HERO_V}`} type="video/webm" />
+      <source src={`/hero.mp4?v=${HERO_V}`} type="video/mp4" />
     </video>
   );
 }
