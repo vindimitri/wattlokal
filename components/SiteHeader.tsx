@@ -8,13 +8,17 @@ import { useEffect, useId, useState } from "react";
 const NAV_ITEMS = [
   { label: "Über uns", href: "/#was-ist-wattlokal" },
   { label: "§ 42c EnWG", href: "/42c-enwg" },
-  { label: "Anmelden", href: "/anmelden" },
 ] as const;
 
 const CTA = {
   label: "Interesse bekunden",
   href: "/anmelden",
 } as const;
+
+/** Mid orange from logo.svg house gradient */
+const LOGO_ORANGE = "#f97316";
+const LOGO_ORANGE_DARK = "#c2410c";
+
 
 function MenuIcon() {
   return (
@@ -105,7 +109,7 @@ export function SiteHeader() {
             />
             <span
               className={`font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight transition-colors duration-300 ${
-                solid ? "text-slate-800" : "text-white"
+                solid ? "text-black" : "text-white"
               }`}
             >
               Wattlokal
@@ -123,8 +127,8 @@ export function SiteHeader() {
                     href={item.href}
                     className={`rounded-lg px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out ${
                       solid
-                        ? "text-slate-800 hover:bg-slate-100 hover:text-emerald-700"
-                        : "text-white/95 hover:bg-white/10 hover:text-white"
+                        ? "text-black hover:bg-orange-50 hover:text-orange-700"
+                        : "text-white hover:bg-white/10"
                     }`}
                   >
                     {item.label}
@@ -137,11 +141,22 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <Link
               href={CTA.href}
-              className={`hidden sm:inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 ${
+              className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                 solid
-                  ? "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700"
-                  : "border-2 border-emerald-400 bg-transparent text-white hover:bg-emerald-500/20"
+                  ? "border-transparent text-white shadow-sm hover:brightness-95"
+                  : "bg-transparent text-white hover:bg-orange-500/15"
               }`}
+              style={
+                solid
+                  ? {
+                      backgroundColor: LOGO_ORANGE,
+                      outlineColor: LOGO_ORANGE,
+                    }
+                  : {
+                      borderColor: LOGO_ORANGE,
+                      outlineColor: LOGO_ORANGE,
+                    }
+              }
             >
               {CTA.label}
             </Link>
@@ -150,7 +165,7 @@ export function SiteHeader() {
               type="button"
               className={`inline-flex items-center justify-center rounded-lg p-2 transition-all duration-300 ease-in-out lg:hidden ${
                 solid
-                  ? "text-slate-800 hover:bg-slate-100"
+                  ? "text-black hover:bg-slate-100"
                   : "text-white hover:bg-white/10"
               }`}
               aria-expanded={mobileOpen}
@@ -190,13 +205,13 @@ export function SiteHeader() {
             <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
               <p
                 id={mobileTitleId}
-                className="font-[family-name:var(--font-display)] text-base font-semibold text-slate-800"
+                className="font-[family-name:var(--font-display)] text-base font-semibold text-black"
               >
                 Menü
               </p>
               <button
                 type="button"
-                className="rounded-lg p-2 text-slate-800 transition-all duration-200 hover:bg-slate-100"
+                className="rounded-lg p-2 text-black transition-all duration-200 hover:bg-slate-100"
                 onClick={() => setMobileOpen(false)}
               >
                 <span className="sr-only">Menü schließen</span>
@@ -214,7 +229,7 @@ export function SiteHeader() {
                     <Link
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      className="block rounded-lg px-3 py-3 text-base font-medium text-slate-800 transition-all duration-200 hover:bg-slate-100"
+                      className="block rounded-lg px-3 py-3 text-base font-medium text-black transition-all duration-200 hover:bg-orange-50"
                     >
                       {item.label}
                     </Link>
@@ -227,7 +242,11 @@ export function SiteHeader() {
               <Link
                 href={CTA.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-emerald-700"
+                className="flex w-full items-center justify-center rounded-lg border-2 px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:brightness-95"
+                style={{
+                  backgroundColor: LOGO_ORANGE,
+                  borderColor: LOGO_ORANGE_DARK,
+                }}
               >
                 {CTA.label}
               </Link>
