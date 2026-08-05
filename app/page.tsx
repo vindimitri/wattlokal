@@ -1,19 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
+import { HeroVideo } from "@/components/HeroVideo";
 import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
   return (
     <>
       <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
-        <Image
-          src="/hero.png"
-          alt="Wohnsiedlung mit Solaranlagen und lokalem Energieaustausch"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover hero-image"
-        />
+        <HeroVideo />
         <div
           aria-hidden
           className="absolute inset-0"
