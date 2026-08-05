@@ -83,6 +83,7 @@ export function SiteHeader() {
 
   // Home hero: transparent bar → white text. After scroll (or subpages): white bar → black text.
   const solid = isHome ? scrolled || mobileOpen : true;
+  const ink = solid ? "#000000" : "#ffffff";
 
   return (
     <>
@@ -92,11 +93,13 @@ export function SiteHeader() {
             ? "border-b border-gray-100/50 bg-white/80 shadow-sm backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         }`}
+        style={{ color: ink }}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link
             href="/"
             className="flex shrink-0 items-center gap-2 transition-opacity duration-300 hover:opacity-90"
+            style={{ color: ink }}
           >
             <Image
               src="/logo.svg"
@@ -108,9 +111,8 @@ export function SiteHeader() {
               priority
             />
             <span
-              className={`font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight transition-colors duration-300 ${
-                solid ? "text-black" : "text-white"
-              }`}
+              className="font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight transition-colors duration-300"
+              style={{ color: ink }}
             >
               Wattlokal
             </span>
@@ -126,10 +128,9 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     className={`rounded-lg px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out ${
-                      solid
-                        ? "text-black hover:bg-orange-50 hover:text-orange-700"
-                        : "text-white hover:bg-white/10"
+                      solid ? "hover:bg-orange-50" : "hover:bg-white/10"
                     }`}
+                    style={{ color: ink }}
                   >
                     {item.label}
                   </Link>
@@ -142,11 +143,10 @@ export function SiteHeader() {
             <Link
               href={CTA.href}
               className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 bg-transparent px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                solid
-                  ? "text-black hover:bg-orange-50"
-                  : "text-white hover:bg-white/10"
+                solid ? "hover:bg-orange-50" : "hover:bg-white/10"
               }`}
               style={{
+                color: ink,
                 borderColor: LOGO_ORANGE,
                 outlineColor: LOGO_ORANGE,
               }}
@@ -157,10 +157,9 @@ export function SiteHeader() {
             <button
               type="button"
               className={`inline-flex items-center justify-center rounded-lg p-2 transition-all duration-300 ease-in-out lg:hidden ${
-                solid
-                  ? "text-black hover:bg-slate-100"
-                  : "text-white hover:bg-white/10"
+                solid ? "hover:bg-slate-100" : "hover:bg-white/10"
               }`}
+              style={{ color: ink }}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-panel"
               onClick={() => setMobileOpen(true)}
