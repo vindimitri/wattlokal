@@ -110,7 +110,7 @@ a {
   border-radius: 0.25rem;
 }
 
-/* § 42c EnWG page – WSE-inspired pillars & roadmap */
+/* 42c EnWG page - WSE-inspired pillars & roadmap */
 .enwg-page {
   --enwg-card: #ffffff;
   --enwg-soft: #f4f6f8;
@@ -393,7 +393,7 @@ a {
   }
 }
 
-/* Hero tagline + CTA — fade in once video is ready */
+/* Hero tagline + CTA ? fade in once video is ready */
 .hero-sky-copy {
   position: absolute;
   left: 50%;
@@ -478,7 +478,7 @@ a {
   }
 }
 
-/* Hero sun open — richer CSS sun, still zero assets */
+/* Hero sun open ? richer CSS sun, still zero assets */
 .hero-sun-reveal {
   position: absolute;
   inset: 0;
@@ -655,5 +655,136 @@ a {
   to {
     transform: translate(-50%, -50%) scale(2.6);
     opacity: 0;
+  }
+}
+
+/* Was-ist orange cover - full section bleed, logo colors */
+.was-door-section {
+  position: relative;
+  width: 100%;
+}
+
+.was-door-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .was-door-frame {
+    padding-block: 3.5rem;
+  }
+}
+
+.was-door-body {
+  position: relative;
+  z-index: 1;
+}
+
+.was-door-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  pointer-events: none;
+}
+
+.was-door-cover {
+  width: 50%;
+  height: 100%;
+  /* One continuous logo gradient across both halves */
+  background-color: #f97316;
+  background-image: linear-gradient(165deg, #ffb347 0%, #f97316 52%, #c2410c 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+.was-door-cover-left {
+  background-position: left center;
+  transform: translateX(0);
+}
+
+.was-door-cover-right {
+  background-position: right center;
+  transform: translateX(0);
+}
+
+.was-door-frame.is-ready .was-door-cover {
+  transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.was-door-frame.is-open .was-door-cover-left {
+  transform: translateX(-105%);
+}
+
+.was-door-frame.is-open .was-door-cover-right {
+  transform: translateX(105%);
+}
+
+.was-door-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  margin: 0;
+  padding: 0.95rem 1.55rem;
+  border: 2px solid #cce2e6;
+  border-radius: 0.65rem;
+  background-color: transparent;
+  background-image: linear-gradient(180deg, #ffffff 0%, #cce2e6 52%, #8fa1bb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #cce2e6;
+  font-family: var(--font-hero), var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.45rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(194, 65, 12, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  animation: was-door-btn-in 0.5s ease forwards;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.was-door-btn:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+  filter: brightness(1.08);
+}
+
+.was-door-btn:focus-visible {
+  outline: 2px solid #cce2e6;
+  outline-offset: 3px;
+}
+
+@keyframes was-door-btn-in {
+  from {
+    opacity: 0;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .was-door-stage {
+    display: none;
+  }
+
+  .was-door-cover {
+    transition: none;
+  }
+
+  .was-door-btn {
+    animation: none;
+    opacity: 1;
   }
 }
