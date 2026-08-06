@@ -69,7 +69,7 @@ export default function HomePage() {
         </section>
 
         {/* 2 */}
-        <section className="py-10 sm:py-14 bg-[#eef2f5]">
+        <section id="das-problem" className="py-10 sm:py-14 bg-[#eef2f5] scroll-mt-24">
           <div className="site-shell">
             <p className="enwg-kicker">Das Problem</p>
             <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold text-[color:var(--enwg-navy)] max-w-3xl">

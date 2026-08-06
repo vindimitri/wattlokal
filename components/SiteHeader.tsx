@@ -95,10 +95,10 @@ export function SiteHeader() {
         }`}
         style={{ color: ink }}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2 transition-opacity duration-300 hover:opacity-90"
+            className="flex shrink-0 items-center gap-2 lg:gap-2.5 transition-opacity duration-300 hover:opacity-90"
             style={{ color: ink }}
           >
             <Image
@@ -106,15 +106,15 @@ export function SiteHeader() {
               alt=""
               width={36}
               height={36}
-              className="h-9 w-9"
+              className="h-9 w-9 lg:h-11 lg:w-11"
               unoptimized
               priority
             />
             <span
-              className="font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight transition-colors duration-300"
+              className="font-[family-name:var(--font-hero)] text-lg lg:text-xl font-semibold tracking-tight transition-colors duration-300"
               style={{ color: ink }}
             >
-              Wattlokal
+              wattlokal
             </span>
           </Link>
 
@@ -122,12 +122,12 @@ export function SiteHeader() {
             aria-label="Hauptnavigation"
             className="hidden lg:flex lg:items-center"
           >
-            <ul className="flex items-center gap-0.5">
+            <ul className="flex items-center gap-1">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`rounded-lg px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out ${
+                    className={`rounded-lg px-3.5 py-2.5 text-base font-medium transition-all duration-300 ease-in-out ${
                       solid ? "hover:bg-orange-50" : "hover:bg-white/10"
                     }`}
                     style={{ color: ink }}
@@ -142,7 +142,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <Link
               href={CTA.href}
-              className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 bg-transparent px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+              className={`hidden sm:inline-flex items-center justify-center rounded-lg border-2 bg-transparent px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 lg:px-5 lg:py-3 lg:text-base ${
                 solid ? "hover:bg-orange-50" : "hover:bg-white/10"
               }`}
               style={{

@@ -8,12 +8,13 @@ const HERO_V = "4";
 type RevealPhase = "sun" | "opening" | "done";
 
 /**
- * Soft sun “opens” the hero (CSS only), then yields to the video.
- * Covers the buffer gap so nothing is a black void.
+ * Soft sun covers the buffer gap; once the video can play,
+ * the sun opens and the sky line fades in from that moment.
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [phase, setPhase] = useState<RevealPhase>("sun");
+  const [showLine, setShowLine] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -22,37 +23,39 @@ export function HeroVideo() {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motionQuery.matches) {
       setPhase("done");
+      setShowLine(true);
       video.muted = true;
       void video.play().catch(() => {});
       return;
     }
 
-    const startedAt = performance.now();
-    const MIN_SUN_MS = 700;
     let opened = false;
+    let safetyTimer = 0;
 
-    const openReveal = () => {
+    const onVideoReady = () => {
       if (opened) return;
       opened = true;
-      const wait = Math.max(0, MIN_SUN_MS - (performance.now() - startedAt));
-      window.setTimeout(() => setPhase("opening"), wait);
+      window.clearTimeout(safetyTimer);
+      // Video is playable → sun opens, tagline starts now
+      setPhase("opening");
+      setShowLine(true);
     };
 
     const tryPlay = () => {
       video.muted = true;
-      void video.play().then(openReveal).catch(() => {
+      void video.play().then(onVideoReady).catch(() => {
         const onCanPlay = () => {
-          void video.play().then(openReveal).catch(openReveal);
+          void video.play().then(onVideoReady).catch(onVideoReady);
         };
         video.addEventListener("canplay", onCanPlay, { once: true });
-        // Safety: never stick on sun forever
-        window.setTimeout(openReveal, 2500);
+        safetyTimer = window.setTimeout(onVideoReady, 2500);
       });
     };
 
     tryPlay();
 
     return () => {
+      window.clearTimeout(safetyTimer);
       video.pause();
     };
   }, []);
@@ -87,7 +90,11 @@ export function HeroVideo() {
           className={`hero-sun-reveal${phase === "opening" ? " is-opening" : ""}`}
           aria-hidden
           onTransitionEnd={(event) => {
-            if (event.propertyName === "opacity" && phase === "opening") {
+            if (
+              event.target === event.currentTarget &&
+              event.propertyName === "opacity" &&
+              phase === "opening"
+            ) {
               setPhase("done");
             }
           }}
@@ -98,6 +105,24 @@ export function HeroVideo() {
           <div className="hero-sun-glow" />
           <div className="hero-sun-corona" />
           <div className="hero-sun-core" />
+        </div>
+      ) : null}
+
+      {showLine ? (
+        <div className="hero-sky-copy">
+          <p className="hero-sky-line">Wir teilen Watt.</p>
+          <a
+            href="#das-problem"
+            className="hero-sky-cta"
+            onClick={(event) => {
+              event.preventDefault();
+              document
+                .getElementById("das-problem")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+          >
+            Mehr erfahren...
+          </a>
         </div>
       ) : null}
     </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Outfit, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import "./globals.css";
 
@@ -10,6 +10,11 @@ const display = Source_Serif_4({
 
 const sans = Source_Sans_3({
   variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const heroFont = Outfit({
+  variable: "--font-hero",
   subsets: ["latin"],
 });
 
@@ -29,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${display.variable} ${sans.variable} h-full`}>
+    <html lang="de" className={`${display.variable} ${sans.variable} ${heroFont.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <SiteHeader />
         <main className="flex-1">{children}</main>
