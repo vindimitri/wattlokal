@@ -1,5 +1,6 @@
 "use client";
 
+import { useHeroReveal } from "@/components/HeroRevealContext";
 import { useEffect, useRef, useState } from "react";
 
 /** Bump when hero media files are replaced (cache bust). */
@@ -13,6 +14,7 @@ type RevealPhase = "sun" | "opening" | "done";
  */
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { reveal } = useHeroReveal();
   const [phase, setPhase] = useState<RevealPhase>("sun");
   const [showLine, setShowLine] = useState(false);
 
@@ -24,6 +26,7 @@ export function HeroVideo() {
     if (motionQuery.matches) {
       setPhase("done");
       setShowLine(true);
+      reveal();
       video.muted = true;
       void video.play().catch(() => {});
       return;
@@ -36,9 +39,10 @@ export function HeroVideo() {
       if (opened) return;
       opened = true;
       window.clearTimeout(safetyTimer);
-      // Video is playable → sun opens, tagline starts now
+      // Video is playable → sun opens, tagline + brand fade in
       setPhase("opening");
       setShowLine(true);
+      reveal();
     };
 
     const tryPlay = () => {
@@ -58,7 +62,7 @@ export function HeroVideo() {
       window.clearTimeout(safetyTimer);
       video.pause();
     };
-  }, []);
+  }, [reveal]);
 
   return (
     <div className="absolute inset-0">

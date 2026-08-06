@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { HeroRevealProvider } from "@/components/HeroRevealContext";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import "./globals.css";
 
@@ -36,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${display.variable} ${sans.variable} ${heroFont.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <HeroRevealProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </HeroRevealProvider>
       </body>
     </html>
   );

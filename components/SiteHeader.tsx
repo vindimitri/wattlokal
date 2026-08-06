@@ -1,5 +1,6 @@
 "use client";
 
+import { useHeroReveal } from "@/components/HeroRevealContext";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -48,6 +49,7 @@ function CloseIcon() {
 export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { revealed } = useHeroReveal();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileTitleId = useId();
@@ -84,6 +86,9 @@ export function SiteHeader() {
   // Home hero: transparent bar → white text. After scroll (or subpages): white bar → black text.
   const solid = isHome ? scrolled || mobileOpen : true;
   const ink = solid ? "#000000" : "#ffffff";
+  const brandRevealClass = isHome
+    ? `hero-brand-reveal${revealed ? " is-in" : ""}`
+    : "";
 
   return (
     <>
@@ -98,7 +103,9 @@ export function SiteHeader() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2 lg:gap-2.5 transition-opacity duration-300 hover:opacity-90"
+            className={`flex shrink-0 items-center gap-2 lg:gap-2.5 ${brandRevealClass}${
+              isHome ? "" : " transition-opacity duration-300 hover:opacity-90"
+            }`}
             style={{ color: ink }}
           >
             <Image
