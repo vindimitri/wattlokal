@@ -373,7 +373,196 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .price-gap-pulse,
   .price-gap-dot,
-  .price-gap-path {
+  .price-gap-path,
+  .hero-sun-core,
+  .hero-sun-glow,
+  .hero-sun-rays,
+  .hero-sun-corona,
+  .hero-sun-haze {
     animation: none !important;
+  }
+
+  .hero-sun-reveal {
+    transition: none !important;
+  }
+}
+
+/* Hero sun open — richer CSS sun, still zero assets */
+.hero-sun-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-sun-reveal.is-opening {
+  opacity: 0;
+}
+
+.hero-sun-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 55% at 18% 18%, rgba(255, 255, 255, 0.35) 0%, transparent 42%),
+    radial-gradient(ellipse 90% 40% at 78% 22%, rgba(255, 255, 255, 0.22) 0%, transparent 45%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(249, 115, 22, 0.55) 0%, transparent 55%),
+    linear-gradient(
+      165deg,
+      #7eb6e8 0%,
+      #a8c8ea 28%,
+      #f6d09a 58%,
+      #f4a261 78%,
+      #ea580c 100%
+    );
+}
+
+.hero-sun-haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 236, 200, 0.55) 0%, transparent 38%),
+    radial-gradient(circle at 50% 48%, rgba(255, 179, 71, 0.25) 0%, transparent 62%);
+  animation: hero-sun-haze-pulse 3s ease-in-out infinite;
+}
+
+.hero-sun-rays {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(95vw, 46rem);
+  height: min(95vw, 46rem);
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 247, 230, 0.55) 0deg 4deg,
+    transparent 4deg 18deg
+  );
+  -webkit-mask-image: radial-gradient(circle, transparent 12%, #000 28%, #000 48%, transparent 68%);
+  mask-image: radial-gradient(circle, transparent 12%, #000 28%, #000 48%, transparent 68%);
+  opacity: 0.55;
+  animation: hero-sun-spin 28s linear infinite;
+}
+
+.hero-sun-glow {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(72vw, 36rem);
+  height: min(72vw, 36rem);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 236, 179, 0.85) 16%,
+    rgba(255, 179, 71, 0.55) 34%,
+    rgba(249, 115, 22, 0.22) 52%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  animation: hero-sun-breathe 2.8s ease-in-out infinite;
+}
+
+.hero-sun-corona {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(28vw, 12rem);
+  height: min(28vw, 12rem);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 214, 140, 0.2) 40%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 0 60px rgba(255, 200, 100, 0.55);
+  animation: hero-sun-breathe 2.2s ease-in-out infinite reverse;
+}
+
+.hero-sun-core {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(16vw, 6.75rem);
+  height: min(16vw, 6.75rem);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, #ffffff 0%, #fff4d6 22%, #ffd27a 48%, #f97316 78%, #ea580c 100%);
+  box-shadow:
+    inset 0 -10px 22px rgba(194, 65, 12, 0.28),
+    inset 0 8px 16px rgba(255, 255, 255, 0.55),
+    0 0 36px rgba(255, 210, 120, 0.9),
+    0 0 80px rgba(249, 115, 22, 0.55);
+  animation: hero-sun-rise 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-sun-reveal.is-opening .hero-sun-core,
+.hero-sun-reveal.is-opening .hero-sun-glow,
+.hero-sun-reveal.is-opening .hero-sun-corona,
+.hero-sun-reveal.is-opening .hero-sun-rays {
+  animation: hero-sun-bloom 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-sun-reveal.is-opening .hero-sun-haze {
+  animation: none;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+@keyframes hero-sun-haze-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-sun-rise {
+  from {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.68);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes hero-sun-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.88;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-sun-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes hero-sun-bloom {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
   }
 }

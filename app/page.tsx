@@ -1,15 +1,11 @@
-import { preload } from "react-dom";
 import Link from "next/link";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PriceGapGraphic } from "@/components/PriceGapGraphic";
 
 export default function HomePage() {
-  // Avoid black flash: poster ready before video buffers
-  preload("/hero-poster.jpg?v=4", { as: "image" });
-
   return (
     <>
-      <section className="relative min-h-[100svh] overflow-hidden bg-[#1a1a1a]" aria-label="Hero">
+      <section className="relative min-h-[100svh] overflow-hidden bg-[#87b8e8]" aria-label="Hero">
         <HeroVideo />
       </section>
 

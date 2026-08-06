@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -12,12 +14,17 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+      // React DevTools / Next HMR need unsafe-eval only in development
+      isDev
+        ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com"
+        : "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "media-src 'self'",
       "font-src 'self' data:",
-      "connect-src 'self' https://challenges.cloudflare.com",
+      isDev
+        ? "connect-src 'self' ws: wss: https://challenges.cloudflare.com"
+        : "connect-src 'self' https://challenges.cloudflare.com",
       "frame-src https://challenges.cloudflare.com",
       "base-uri 'self'",
       "form-action 'self'",
